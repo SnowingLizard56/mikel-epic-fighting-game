@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Useful stuff to copy+paste.md",
+                "file": "People/Sylvia.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Useful stuff to copy+paste"
+              "title": "Sylvia"
             }
           },
           {
@@ -123,7 +123,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Useful stuff to copy+paste.md",
+                "file": "People/Sylvia.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -133,7 +133,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for Useful stuff to copy+paste"
+              "title": "Backlinks for Sylvia"
             }
           },
           {
@@ -142,12 +142,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Useful stuff to copy+paste.md",
+                "file": "People/Sylvia.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links from Useful stuff to copy+paste"
+              "title": "Outgoing links from Sylvia"
             }
           },
           {
@@ -171,13 +171,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Useful stuff to copy+paste.md",
+                "file": "People/Sylvia.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of Useful stuff to copy+paste"
+              "title": "Outline of Sylvia"
             }
           }
         ]
@@ -199,16 +199,16 @@
   },
   "active": "ea1c783a8386e8ca",
   "lastOpenFiles": [
-    "Devlog List.md",
-    "Index.md",
-    "Useful stuff to copy+paste.md",
-    "HTMAEC.md",
-    "People/Sylvia.md",
-    "People/Ben.md",
     "People/Mikel.md",
     "People/Nora.md",
-    "HTMAES.md",
+    "People/Ben.md",
     "People/Ava.md",
+    "People/Sylvia.md",
+    "Useful stuff to copy+paste.md",
+    "Devlog List.md",
+    "Index.md",
+    "HTMAEC.md",
+    "HTMAES.md",
     "Log/21-3-25.md",
     "People",
     "Log/21-03-25.md",
