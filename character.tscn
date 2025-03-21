@@ -1,5 +1,0 @@
-[gd_scene format=3 uid="uid://blhx0vnt7st2p"]
-
-[node name="Character" type="Node2D"]
-
-[node name="States" type="Node2D" parent="."]

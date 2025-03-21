@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=3 uid="uid://blhx0vnt7st2p"]
+
+[ext_resource type="Script" uid="uid://dc71505scn3gk" path="res://example_character.gd" id="1_if5gu"]
+[ext_resource type="Script" uid="uid://kweq1j6mjprm" path="res://StateBase.gd" id="2_dk8aw"]
+
+[node name="Character" type="CharacterBody2D"]
+script = ExtResource("1_if5gu")
+
+[node name="States" type="Node2D" parent="."]
+
+[node name="Idle" type="Node2D" parent="States"]
+visible = false
+script = ExtResource("2_dk8aw")
+
+[node name="Falling" type="Node2D" parent="States"]
+visible = false
+
+[node name="Melee" type="Node2D" parent="States"]
+visible = false
+
+[node name="Block" type="Node2D" parent="States"]
+visible = false
+
+[node name="Grab" type="Node2D" parent="States"]
+visible = false
+
+[node name="GrabSuccess" type="Node2D" parent="States"]
+visible = false
+
+[node name="SideSpecial" type="Node2D" parent="States"]
+visible = false
+
+[node name="UpSpecial" type="Node2D" parent="States"]
+visible = false
+
+[node name="DownSpecial" type="Node2D" parent="States"]
+visible = false
+
+[node name="NeutralSpecial" type="Node2D" parent="States"]
+visible = false
+
+[node name="SpecialSpecial" type="Node2D" parent="States"]
+visible = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
