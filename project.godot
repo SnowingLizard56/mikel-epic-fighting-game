@@ -13,3 +13,8 @@ config_version=5
 config/name="mikel-epic-fighting-game"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
+
+[layer_names]
+
+2d_physics/layer_1="Terrain"
+2d_physics/layer_2="Player Type Hitboxes"

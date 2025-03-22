@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://bqipd3g2dpgtc"]
+
+[node name="StageBase" type="Node2D"]
+
+[node name="Platform" type="StaticBody2D" parent="."]
+
+[node name="Spawns" type="Node2D" parent="."]
+
+[node name="0" type="Marker2D" parent="Spawns"]
+
+[node name="1" type="Marker2D" parent="Spawns"]
+position = Vector2(401, -34)

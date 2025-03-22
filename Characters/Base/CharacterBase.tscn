@@ -1,0 +1,76 @@
+[gd_scene load_steps=5 format=3 uid="uid://blhx0vnt7st2p"]
+
+[ext_resource type="Script" uid="uid://ic2eyu54kp66" path="res://Characters/Base/CharacterBase.gd" id="1_s88hy"]
+[ext_resource type="Script" uid="uid://c4psqrs01olrq" path="res://Characters/Example/States/IdleState.gd" id="2_s8nxr"]
+[ext_resource type="SpriteFrames" uid="uid://uubk00ywxenw" path="res://Characters/Example/CharacterBase.tres" id="3_bsg12"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s88hy"]
+
+[node name="Character" type="CharacterBody2D"]
+collision_layer = 0
+script = ExtResource("1_s88hy")
+
+[node name="States" type="Node2D" parent="."]
+
+[node name="Idle" type="Node2D" parent="States"]
+visible = false
+script = ExtResource("2_s8nxr")
+search_for_hit = null
+detect_cooldown = null
+hitstun_time = null
+knockback_mult = null
+gravity_mult = 1.0
+allow_jumps = null
+horizontal_speed = null
+
+[node name="Falling" type="Node2D" parent="States"]
+visible = false
+
+[node name="Melee" type="Node2D" parent="States"]
+
+[node name="0" type="Node2D" parent="States/Melee"]
+
+[node name="Hit" type="Area2D" parent="States/Melee/0"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="States/Melee/0/Hit"]
+position = Vector2(27, -24)
+shape = SubResource("RectangleShape2D_s88hy")
+disabled = true
+
+[node name="Block" type="Node2D" parent="States"]
+visible = false
+
+[node name="Grab" type="Node2D" parent="States"]
+visible = false
+
+[node name="GrabSuccess" type="Node2D" parent="States"]
+visible = false
+
+[node name="SideSpecial" type="Node2D" parent="States"]
+visible = false
+
+[node name="UpSpecial" type="Node2D" parent="States"]
+visible = false
+
+[node name="DownSpecial" type="Node2D" parent="States"]
+visible = false
+
+[node name="NeutralSpecial" type="Node2D" parent="States"]
+visible = false
+
+[node name="SpecialSpecial" type="Node2D" parent="States"]
+visible = false
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+unique_name_in_owner = true
+sprite_frames = ExtResource("3_bsg12")
+animation = &"Idle"
+
+[node name="Shape" type="CollisionShape2D" parent="."]
+
+[node name="Hitbox" type="Area2D" parent="."]
+unique_name_in_owner = true
+
+[node name="Shape" type="CollisionShape2D" parent="Hitbox"]

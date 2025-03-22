@@ -1,1 +1,2 @@
-To make and edit stages, 
+To make and edit stages.
+

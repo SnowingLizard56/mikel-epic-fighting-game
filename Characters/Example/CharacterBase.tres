@@ -1,0 +1,54 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://uubk00ywxenw"]
+
+[resource]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"Block",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"DownSpecial",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"Falling",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"Grab",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"GrabSuccess",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"Melee",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"NeutralSpecial",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"SideSpecial",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"UpSpecial",
+"speed": 5.0
+}]
