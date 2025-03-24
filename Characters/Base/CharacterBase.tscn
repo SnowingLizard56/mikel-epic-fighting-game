@@ -1,67 +1,60 @@
-[gd_scene load_steps=5 format=3 uid="uid://blhx0vnt7st2p"]
+[gd_scene load_steps=9 format=3 uid="uid://blhx0vnt7st2p"]
 
 [ext_resource type="Script" uid="uid://ic2eyu54kp66" path="res://Characters/Base/CharacterBase.gd" id="1_s88hy"]
 [ext_resource type="Script" uid="uid://c4psqrs01olrq" path="res://Characters/Example/States/IdleState.gd" id="2_s8nxr"]
+[ext_resource type="Script" uid="uid://kweq1j6mjprm" path="res://Characters/Base/StateBase.gd" id="3_0t1o6"]
 [ext_resource type="SpriteFrames" uid="uid://uubk00ywxenw" path="res://Characters/Example/CharacterBase.tres" id="3_bsg12"]
+[ext_resource type="Script" uid="uid://bn8g23mytsl6s" path="res://Characters/Base/hitbox.gd" id="3_s8nxr"]
+[ext_resource type="Script" uid="uid://bvem3x021anwx" path="res://Characters/Base/player_hurtbox.gd" id="6_0t1o6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s88hy"]
+size = Vector2(32, 48)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_s88hy"]
 
 [node name="Character" type="CharacterBody2D"]
 collision_layer = 0
 script = ExtResource("1_s88hy")
+gravity = 490
 
-[node name="States" type="Node2D" parent="."]
+[node name="StateMachine" type="Node" parent="."]
 
-[node name="Idle" type="Node2D" parent="States"]
-visible = false
+[node name="Idle" type="Node2D" parent="StateMachine"]
 script = ExtResource("2_s8nxr")
-search_for_hit = null
-detect_cooldown = null
-hitstun_time = null
-knockback_mult = null
-gravity_mult = 1.0
-allow_jumps = null
-horizontal_speed = null
+gravity_mult = 2.0
 
-[node name="Falling" type="Node2D" parent="States"]
-visible = false
+[node name="Melee" type="Node2D" parent="StateMachine"]
+script = ExtResource("3_0t1o6")
 
-[node name="Melee" type="Node2D" parent="States"]
-
-[node name="0" type="Node2D" parent="States/Melee"]
-
-[node name="Hit" type="Area2D" parent="States/Melee/0"]
+[node name="Hitbox" type="Area2D" parent="StateMachine/Melee"]
 collision_layer = 0
 collision_mask = 2
+script = ExtResource("3_s8nxr")
+metadata/_custom_type_script = "uid://bn8g23mytsl6s"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="States/Melee/0/Hit"]
-position = Vector2(27, -24)
-shape = SubResource("RectangleShape2D_s88hy")
-disabled = true
+[node name="StartTime" type="Timer" parent="StateMachine/Melee/Hitbox"]
+one_shot = true
 
-[node name="Block" type="Node2D" parent="States"]
-visible = false
+[node name="ActiveTime" type="Timer" parent="StateMachine/Melee/Hitbox"]
+one_shot = true
 
-[node name="Grab" type="Node2D" parent="States"]
-visible = false
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StateMachine/Melee/Hitbox"]
 
-[node name="GrabSuccess" type="Node2D" parent="States"]
-visible = false
+[node name="Block" type="Node2D" parent="StateMachine"]
 
-[node name="SideSpecial" type="Node2D" parent="States"]
-visible = false
+[node name="Grab" type="Node2D" parent="StateMachine"]
 
-[node name="UpSpecial" type="Node2D" parent="States"]
-visible = false
+[node name="GrabSuccess" type="Node2D" parent="StateMachine"]
 
-[node name="DownSpecial" type="Node2D" parent="States"]
-visible = false
+[node name="SideSpecial" type="Node2D" parent="StateMachine"]
 
-[node name="NeutralSpecial" type="Node2D" parent="States"]
-visible = false
+[node name="UpSpecial" type="Node2D" parent="StateMachine"]
 
-[node name="SpecialSpecial" type="Node2D" parent="States"]
-visible = false
+[node name="DownSpecial" type="Node2D" parent="StateMachine"]
+
+[node name="NeutralSpecial" type="Node2D" parent="StateMachine"]
+
+[node name="SpecialSpecial" type="Node2D" parent="StateMachine"]
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 unique_name_in_owner = true
@@ -69,8 +62,15 @@ sprite_frames = ExtResource("3_bsg12")
 animation = &"Idle"
 
 [node name="Shape" type="CollisionShape2D" parent="."]
+position = Vector2(0, -24)
+shape = SubResource("RectangleShape2D_s88hy")
 
 [node name="Hitbox" type="Area2D" parent="."]
 unique_name_in_owner = true
+script = ExtResource("6_0t1o6")
 
 [node name="Shape" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(0, -21)
+shape = SubResource("CircleShape2D_s88hy")
+
+[connection signal="timeout" from="StateMachine/Melee/Hitbox/StartTime" to="StateMachine/Melee/Hitbox/ActiveTime" method="start"]

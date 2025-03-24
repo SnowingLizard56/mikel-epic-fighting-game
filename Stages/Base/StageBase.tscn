@@ -1,8 +1,18 @@
-[gd_scene format=3 uid="uid://bqipd3g2dpgtc"]
+[gd_scene load_steps=4 format=3 uid="uid://bqipd3g2dpgtc"]
+
+[ext_resource type="PackedScene" uid="uid://blhx0vnt7st2p" path="res://Characters/Base/CharacterBase.tscn" id="1_jcxlc"]
+[ext_resource type="Texture2D" uid="uid://dwlioff0qg0qp" path="res://Stages/Base/untitled.png" id="1_o3v33"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_jcxlc"]
+a = Vector2(306, 585)
+b = Vector2(820, 594)
 
 [node name="StageBase" type="Node2D"]
 
-[node name="Platform" type="StaticBody2D" parent="."]
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("SegmentShape2D_jcxlc")
 
 [node name="Spawns" type="Node2D" parent="."]
 
@@ -10,3 +20,10 @@
 
 [node name="1" type="Marker2D" parent="Spawns"]
 position = Vector2(401, -34)
+
+[node name="Stage" type="Sprite2D" parent="."]
+texture = ExtResource("1_o3v33")
+centered = false
+
+[node name="Character" parent="." instance=ExtResource("1_jcxlc")]
+position = Vector2(321, 464)
