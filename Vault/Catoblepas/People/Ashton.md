@@ -1,4 +1,5 @@
 Weapon: Mage Staff
+Megumin EXPLOSION!!!!!
 
 # Loadout
 

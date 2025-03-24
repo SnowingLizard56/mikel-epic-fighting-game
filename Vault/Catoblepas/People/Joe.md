@@ -1,5 +1,5 @@
 Weapon: Dual-Wield Pistols
-
+tbd
 # Loadout
 
 | Ability     | Name | Effect Description | Numbers / Notes |

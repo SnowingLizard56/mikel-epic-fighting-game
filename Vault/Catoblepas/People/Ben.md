@@ -1,5 +1,5 @@
 Weapon: Bow and Arrow
-
+Bro thinks he's Quincy
 # Loadout
 
 | Ability     | Name            | Effect Description                                                                                                                                  | Numbers / Notes |
