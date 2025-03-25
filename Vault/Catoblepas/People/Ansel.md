@@ -1,5 +1,5 @@
 Weapon: Double-Headed Spear
-
+Brawlhalla fr
 # Loadout
 
 | Ability     | Name | Effect Description | Numbers / Notes |

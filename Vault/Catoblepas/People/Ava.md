@@ -1,5 +1,5 @@
 Weapon: Book(?)
-
+Quirky Librarian
 # Loadout
 
 | Ability     | Name           | Effect Description                                                                                                                                              | Numbers / Notes               |

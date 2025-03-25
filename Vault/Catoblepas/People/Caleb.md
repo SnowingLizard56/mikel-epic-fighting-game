@@ -1,5 +1,5 @@
 Weapon: Scythe
-
+Mischievous ahh moveset
 # Loadout
 
 | Ability     | Name | Effect Description | Numbers / Notes |

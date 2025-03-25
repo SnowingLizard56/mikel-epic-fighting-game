@@ -1,5 +1,4 @@
 Weapon: Undecided
-tbd
 # Loadout
 
 | Ability     | Name | Effect Description | Numbers / Notes |
@@ -12,4 +11,3 @@ tbd
 | Neutral     |      |                    |                 |
 | Recovery    |      |                    |                 |
 | Ultimate    |      |                    |                 |
-

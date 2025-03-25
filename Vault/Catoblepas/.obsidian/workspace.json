@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "People/Ben.md",
+                "file": "People/Moqi.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Ben"
+              "title": "Moqi"
             }
           }
         ]
@@ -94,7 +94,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "People/Ben.md",
+                "file": "People/Ollie.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -104,7 +104,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for Ben"
+              "title": "Backlinks for Ollie"
             }
           },
           {
@@ -170,35 +170,35 @@
   },
   "active": "f5a22dec2017cdf7",
   "lastOpenFiles": [
-    "Log/22-3-25.md",
+    "People/Mikel.md",
+    "People/Michael.md",
+    "People/Sylvia.md",
+    "People/Ollie.md",
+    "People/Daniel.md",
+    "People/Moqi.md",
+    "Status Effects and Gimmicks/Stun.md",
+    "Status Effects and Gimmicks/Brittle.md",
+    "Status Effects and Gimmicks/Bleeding.md",
+    "People/Nora.md",
+    "People/Joe.md",
+    "People/Hunter.md",
+    "People/Fearghal.md",
+    "People/Evelyn.md",
     "People/Caleb.md",
     "People/Ben.md",
     "People/Ava.md",
     "People/Ansel.md",
+    "People/Joe (Freedman).md",
     "People/Ashton.md",
-    "People/Daniel.md",
-    "People/Hunter.md",
-    "People/Fearghal.md",
-    "People/Joe.md",
-    "People/Moqi.md",
-    "People/Mikel.md",
-    "People/Michael.md",
-    "People/Nora.md",
-    "People/Ollie.md",
-    "Index.md",
-    "HTMAEC.md",
-    "People/Sylvia.md",
+    "Log/22-3-25.md",
     "Log/21-3-25.md",
-    "Status Effects and Gimmicks/Stun.md",
-    "Status Effects and Gimmicks/Brittle.md",
-    "Devlog List.md",
+    "Index.md",
+    "Useful stuff to copy+paste.md",
+    "HTMAES.md",
+    "HTMAEC.md",
     "Pasted image 20250322122209.png",
     "Pasted image 20250322122137.png",
-    "Useful stuff to copy+paste.md",
     "Pasted image 20250322122056.png",
-    "Status Effects/Altar.md",
-    "HTMAES.md",
-    "E.md",
     "Status Effects and Gimmicks",
     "People",
     "Log",

@@ -1,5 +1,5 @@
 Weapon: Railgun
-
+reloading
 # Loadout
 
 | Ability     | Name              | Effect Description                                                                                                                                                                                                                                                                   | Numbers / Notes        |

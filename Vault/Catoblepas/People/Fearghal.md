@@ -1,5 +1,5 @@
 Weapon: Undecided
-
+idk man idk
 # Loadout
 
 | Ability     | Name | Effect Description | Numbers / Notes |
