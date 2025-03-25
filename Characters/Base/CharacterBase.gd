@@ -9,22 +9,32 @@ var hitstun_time := 0.0
 		state = v
 		%Sprite.animation = v.name
 		v.start()
-var air_jumps_remaining: int
 var dir_input: Vector2
 var facing_dir: int
 
 @export_category("Jumping")
 ## How many jumps the player gets while in the air. This includes walking off of ledges and jumping into the air.
-@export var air_jumps := 0 # TODO
+@export var max_air_jumps := 0 # TODO
+@onready var air_jumps: int = max_air_jumps
 ## Height of peak of jump from ground in px 
 @export var ground_jump_height := 32.0 # TODO
+# vi = sqrt(2*g*d)
+@onready var ground_jump_strength = sqrt(2*gravity*ground_jump_height)
 ## Height of peak of jump from air in px
 @export var air_jump_height := 32.0 # TODO
+# vi = sqrt(2*g*d)
+@onready var air_jump_strength = sqrt(2*gravity*air_jump_height)
 ## Acceleration downwards due to gravity. Multiplied by a state's gravity_mult to get final vertical acceleration (px per second per second)
 @export var gravity := 98
+
 @export_category("Physics")
-## 0 is no friction. 1 is total friction.
+## Acceleration in px per second squared controlled by horizontal input while airborne.
+@export var air_control_force := 0.0
+## Acceleration in px per second squared controlled by horizontal input while not airborne.
+@export var ground_control_force := 0.0
+## Speed reduction over time while on ground. 0 is frictionless.
 @export var ground_friction := 0.8 # TODO
+## Speed reduction over time while in air. 0 is frictionless.
 @export var air_friction := 0.8# TODO
 ## Maximum speed to be reached horizontally while on the ground
 @export var max_ground_speed := 32.0 # TODO
@@ -32,6 +42,7 @@ var facing_dir: int
 @export var max_air_speed := 16.0 # TODO
 ## Maximum speed reached under influence of gravity. Literally terminal velocity
 @export var max_fall_speed := 64 # TODO
+
 @export_category("When hit... owei")
 ## Multiplier to damage taken.
 @export var damage_taken_multiplier := 1.0
@@ -39,7 +50,9 @@ var facing_dir: int
 @export var knockback_taken_multiplier := 1.0
 ## Multplier to hitstun on self.
 @export var hitstun_multiplier := 1.0
+
 @export_category("Inputs & What They Do")
+
 ## No description fuck you
 @export var ground_side: BaseState
 ## No description fuck you
@@ -85,9 +98,91 @@ func _physics_process(delta: float) -> void:
 	# TEMP
 	# PLEASE remember to change this input. good lord
 	dir_input = Vector2(Input.get_axis("ui_left", "ui_right"), Input.get_axis("ui_up", "ui_down"))
-	state.movement(dir_input, delta)
+	movement(dir_input, delta, Input.is_action_just_pressed("ui_accept"))
+
+
+func damp(source:float, target:float, smoothing:float, dt:float) -> float:
+	return lerpf(source, target, 1 - pow(smoothing, dt))
+
+
+# dir is not normalised
+func movement(dir:Vector2, delta:float, jump:bool) -> void:
+	# Friction
+	var real_friction
+	if is_on_floor():
+		if state.override_ground_friction:
+			real_friction = state.ground_friction
+		else:
+			real_friction = ground_friction
+	else:
+		if state.override_air_friction:
+			real_friction = state.air_friction
+		else:
+			real_friction = air_friction
+	# 
+	velocity.x = damp(velocity.x, 0, real_friction, delta)
+	
+	# Gravity
+	var real_gravity
+	if state.override_gravity:
+		real_gravity = state.gravity
+	else:
+		real_gravity = gravity
+	# Terminal Velocity
+	var real_terminal_velocity
+	if state.override_max_fall_speed:
+		real_terminal_velocity = state.max_fall_speed
+	else:
+		real_terminal_velocity = max_fall_speed
+	#
+	velocity.y = move_toward(velocity.y, real_terminal_velocity, real_gravity * delta)
+	
+	# Input
+	if dir.x:
+		# Horizontal
+		var real_input_force
+		if is_on_floor():
+			if state.override_ground_control_force:
+				real_input_force = state.ground_control_force
+			else:
+				real_input_force = ground_control_force
+		else:
+			if state.override_air_control_force:
+				real_input_force = state.air_control_force
+			else:
+				real_input_force = air_control_force
+		
+		# Max speed
+		var real_max_speed
+		if is_on_floor():
+			if state.override_max_ground_speed:
+				real_max_speed = state.max_ground_speed
+			else:
+				real_max_speed = max_ground_speed
+		else:
+			if state.override_max_air_speed:
+				real_max_speed = state.max_air_speed
+			else:
+				real_max_speed = max_air_speed
+		#
+		velocity.x = move_toward(velocity.x, real_max_speed * dir.x, real_input_force * delta)
+	
+	# Jump
+	if jump and state.allow_jumps:
+		# Jump strength
+		var real_jump_impulse := 0.0
+		if is_on_floor():
+			real_jump_impulse = ground_jump_strength
+		elif air_jumps > 0:
+			air_jumps -= 1
+			real_jump_impulse = air_jump_strength
+		else:
+			real_jump_impulse = -velocity.y
+		#
+		velocity.y = -real_jump_impulse
+	#
+	var was_on_floor = is_on_floor()
 	move_and_slide()
-
-
-func damp(source, target, smoothing:float, dt:float) -> float:
-	return lerp(source, target, 1 - pow(smoothing, dt))
+	# if it is now on the floor and it wasnt before, reset air jumps
+	if is_on_floor() and !was_on_floor:
+		air_jumps = max_air_jumps

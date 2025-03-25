@@ -5,13 +5,21 @@ class_name Hitbox extends Area2D
 ## How long before something can be detected again.
 ## 0.0 will detect it every frame, anything negative will detect it once for as long as its in this state, anything else is time in seconds.
 @export var detect_cooldown := -1.0
+## Flip with player
 @export_category("Attack Parameters")
 ## Hitstun to apply to hit players.
 @export var hitstun_time := 0.0
-## Multiplier to normal knockback (relative to health)
-@export var knockback_mult := 0.0
 ## Amount of damage dealt by this hb immediately. further damage can be applied by state script.
 @export var damage := 0.0
+@export_category("Knockback")
+## expl \n
+##
+@export_enum("Centre of ") var knockback_origin
+## Direction of knockback
+@export var kb_direction := Vector2.RIGHT
+## Multiplier to normal knockback (which is proportional to health)
+@export var knockback_mult := 0.0
+
 
 @onready var state: BaseState = get_parent()
 @onready var host: BaseCharacter = state.host

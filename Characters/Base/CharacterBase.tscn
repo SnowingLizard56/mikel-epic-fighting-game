@@ -15,21 +15,41 @@ size = Vector2(32, 48)
 [node name="Character" type="CharacterBody2D"]
 collision_layer = 0
 script = ExtResource("1_s88hy")
-gravity = 490
 
 [node name="StateMachine" type="Node" parent="."]
 
 [node name="Idle" type="Node2D" parent="StateMachine"]
 script = ExtResource("2_s8nxr")
-gravity_mult = 2.0
+allow_jumps = true
 
 [node name="Melee" type="Node2D" parent="StateMachine"]
 script = ExtResource("3_0t1o6")
+allow_jumps = null
+set_velocity = null
+velocity = null
+override_ground_friction = null
+ground_friction = null
+override_air_friction = null
+air_friction = null
+override_max_air_speed = null
+max_air_speed = null
+override_max_ground_speed = null
+max_ground_speed = null
+override_gravity = null
+gravity = null
+override_max_fall_speed = null
+max_fall_speed = null
+damage_multiplier = null
+kb_multiplier = null
+hitstun_multiplier = null
+allow_flip_always = null
+allow_flip_time = null
 
 [node name="Hitbox" type="Area2D" parent="StateMachine/Melee"]
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("3_s8nxr")
+kb_direction = null
 metadata/_custom_type_script = "uid://bn8g23mytsl6s"
 
 [node name="StartTime" type="Timer" parent="StateMachine/Melee/Hitbox"]
