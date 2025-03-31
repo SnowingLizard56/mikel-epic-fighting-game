@@ -46,6 +46,8 @@ var frame: int
 @export var override_ground_control_force := false
 ## Acceleration in px per second squared controlled by horizontal input while not airborne.
 @export var ground_control_force := 0.0
+## Whether movement is handled in script - function named "movement"
+@export var override_movement := false
 
 @export_category("On Hit Modifiers")
 ## Modifier to damage taken while in this state

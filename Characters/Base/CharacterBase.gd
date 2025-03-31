@@ -107,21 +107,6 @@ func damp(source:float, target:float, smoothing:float, dt:float) -> float:
 
 # dir is not normalised
 func movement(dir:Vector2, delta:float, jump:bool) -> void:
-	# Friction
-	var real_friction
-	if is_on_floor():
-		if state.override_ground_friction:
-			real_friction = state.ground_friction
-		else:
-			real_friction = ground_friction
-	else:
-		if state.override_air_friction:
-			real_friction = state.air_friction
-		else:
-			real_friction = air_friction
-	# 
-	velocity.x = damp(velocity.x, 0, real_friction, delta)
-	
 	# Gravity
 	var real_gravity
 	if state.override_gravity:
@@ -166,6 +151,21 @@ func movement(dir:Vector2, delta:float, jump:bool) -> void:
 				real_max_speed = max_air_speed
 		#
 		velocity.x = move_toward(velocity.x, real_max_speed * dir.x, real_input_force * delta)
+	else:
+		# Friction
+		var real_friction
+		if is_on_floor():
+			if state.override_ground_friction:
+				real_friction = state.ground_friction
+			else:
+				real_friction = ground_friction
+		else:
+			if state.override_air_friction:
+				real_friction = state.air_friction
+			else:
+				real_friction = air_friction
+		# 
+		velocity.x = damp(velocity.x, 0, real_friction, delta)
 	
 	# Jump
 	if jump and state.allow_jumps:
