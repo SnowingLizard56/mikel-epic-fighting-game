@@ -1,6 +1,12 @@
 @tool
 class_name Hitbox extends Area2D
 
+enum KB_SRC {
+	CUSTOM,
+	HITBOX,
+	CHARACTER
+}
+
 @export_category("Hitbox Parameters")
 ## How long before something can be detected again.
 ## 0.0 will detect it every frame, anything negative will detect it once for as long as its in this state, anything else is time in seconds.
@@ -12,19 +18,26 @@ class_name Hitbox extends Area2D
 ## Amount of damage dealt by this hb immediately. further damage can be applied by state script.
 @export var damage := 0.0
 @export_category("Knockback")
-## expl \n
-##
-@export_enum("Centre of ") var knockback_origin
-## Direction of knockback
-@export var kb_direction := Vector2.RIGHT
-## Multiplier to normal knockback (which is proportional to health)
-@export var knockback_mult := 0.0
+## Direction of knockback source
+@export var knockback_origin_type: KB_SRC
+## Direction of knockback when origin is Custom. This is normalised on runtime
+@export var knockback_direction := Vector2.RIGHT
+## Knockback strength (proportional to health) (who fucking knows what this is measured in)
+@export var knockback_strength := 0.0
+
+var state: BaseState
+var host: BaseCharacter
+var start_timer: Timer
+var end_timer: Timer
 
 
-@onready var state: BaseState = get_parent()
-@onready var host: BaseCharacter = state.host
-@onready var start_timer: Timer = get_child(0)
-@onready var end_timer: Timer = get_child(1)
+func _ready() -> void:
+	if Engine.is_editor_hint():
+		return
+	state = get_parent()
+	host = state.host
+	start_timer = get_child(0)
+	end_timer = get_child(1)
 
 
 func _physics_process(delta: float) -> void:
@@ -63,5 +76,5 @@ func _process(delta: float) -> void:
 
 
 func process_hit(area: Area2D):
-	area.host.take_hit()
-	state.found_hitbox(area)
+	area.host.hit(self)
+	state.hit_detected.emit(area.host)

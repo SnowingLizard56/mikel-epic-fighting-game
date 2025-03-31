@@ -11,17 +11,21 @@ var hitstun_time := 0.0
 		v.start()
 var dir_input: Vector2
 var facing_dir: int
+var centre_of_mass: Vector2:
+	get():
+		return %Hitbox.get_child(0).global_position
+
 
 @export_category("Jumping")
 ## How many jumps the player gets while in the air. This includes walking off of ledges and jumping into the air.
-@export var max_air_jumps := 0 # TODO
+@export var max_air_jumps := 0
 @onready var air_jumps: int = max_air_jumps
 ## Height of peak of jump from ground in px 
-@export var ground_jump_height := 32.0 # TODO
+@export var ground_jump_height := 32.0
 # vi = sqrt(2*g*d)
 @onready var ground_jump_strength = sqrt(2*gravity*ground_jump_height)
 ## Height of peak of jump from air in px
-@export var air_jump_height := 32.0 # TODO
+@export var air_jump_height := 32.0
 # vi = sqrt(2*g*d)
 @onready var air_jump_strength = sqrt(2*gravity*air_jump_height)
 ## Acceleration downwards due to gravity. Multiplied by a state's gravity_mult to get final vertical acceleration (px per second per second)
@@ -33,15 +37,15 @@ var facing_dir: int
 ## Acceleration in px per second squared controlled by horizontal input while not airborne.
 @export var ground_control_force := 0.0
 ## Speed reduction over time while on ground. 0 is frictionless.
-@export var ground_friction := 0.8 # TODO
+@export var ground_friction := 0.8
 ## Speed reduction over time while in air. 0 is frictionless.
-@export var air_friction := 0.8# TODO
+@export var air_friction := 0.8
 ## Maximum speed to be reached horizontally while on the ground
-@export var max_ground_speed := 32.0 # TODO
+@export var max_ground_speed := 32.0
 ## Maximum speed to be reached horizontally while in the air
-@export var max_air_speed := 16.0 # TODO
+@export var max_air_speed := 16.0
 ## Maximum speed reached under influence of gravity. Literally terminal velocity
-@export var max_fall_speed := 64 # TODO
+@export var max_fall_speed := 64
 
 @export_category("When hit... owei")
 ## Multiplier to damage taken.
@@ -49,7 +53,7 @@ var facing_dir: int
 ## Multiplier to knockback on self.
 @export var knockback_taken_multiplier := 1.0
 ## Multplier to hitstun on self.
-@export var hitstun_multiplier := 1.0
+@export var hitstun_taken_multiplier := 1.0
 
 @export_category("Inputs & What They Do")
 
@@ -186,3 +190,26 @@ func movement(dir:Vector2, delta:float, jump:bool) -> void:
 	# if it is now on the floor and it wasnt before, reset air jumps
 	if is_on_floor() and !was_on_floor:
 		air_jumps = max_air_jumps
+
+
+# Called when __THIS__ character gets hit.
+func hit(source: Hitbox):
+	hp += source.damage * damage_taken_multiplier * state.damage_taken_multiplier
+	hitstun_time += source.hitstun_time * hitstun_taken_multiplier * state.hitstun_taken_multiplier
+	# Knockback. not sure how this works yet.
+	var knockback
+	match source.knockback_origin_type:
+		source.KB_SRC.CUSTOM:
+			knockback = source.knockback_direction.normalized()
+		source.KB_SRC.HITBOX:
+			knockback = source.global_position.direction_to(centre_of_mass)
+		source.KB_SRC.CHARACTER:
+			knockback = source.host.centre_of_mass.direction_to(centre_of_mass)
+	knockback *= source.knockback_strength
+	knockback *= knockback_taken_multiplier
+	knockback *= state.knockback_taken_multiplier
+	
+	# Unsure about this
+	knockback *= 1+(hp / 100)
+	
+	# TODO - do something with the knockback variable. god knows what

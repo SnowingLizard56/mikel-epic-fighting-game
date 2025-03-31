@@ -1,9 +1,10 @@
 class_name BaseState extends Node
+
 # StateBase is BaseState
 @onready var host: BaseCharacter = get_parent().get_parent()
 @onready var area_blacklist: Array[Area2D] = [%Hitbox]
 var frame: int
-
+signal hit_detected(char:BaseCharacter)
 
 @export_category("Physics")
 ## Allow jumps in this state. 
@@ -51,24 +52,17 @@ var frame: int
 
 @export_category("On Hit Modifiers")
 ## Modifier to damage taken while in this state
-@export var damage_multiplier := 1.0
+@export var damage_taken_multiplier := 1.0
 ## Modifier to knockback taken while in this state
-@export var kb_multiplier := 1.0
+@export var knockback_taken_multiplier := 1.0
 ## Modifier to hitstun applied to host while in this state
-@export var hitstun_multiplier := 1.0
+@export var hitstun_taken_multiplier := 1.0
 
 @export_category("Misc")
 ## Always allow player to turn around
 @export var allow_flip_always := false
 ## Allow player to turn around for this long after state entry
 @export var allow_flip_time := 0.0
-
-# Functions in parent classes can and should be overriden when necessary.
-# For classes that inherit from this one.
-# :)
-# Its nice!!
-func found_hitbox(a:Area2D) -> void:
-	pass
 
 
 func add_temp_blacklist(area, detect_cooldown) -> void:
