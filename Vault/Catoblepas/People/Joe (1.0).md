@@ -1,4 +1,4 @@
-Weapon: Dual-Wield Pistols
+Weapon: Undecided
 tbd
 # Loadout
 
