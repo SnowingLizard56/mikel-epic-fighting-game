@@ -20,7 +20,7 @@ func _ready() -> void:
 		cur_sel += 1
 		child.rotation_degrees = randf_range(-20, 20)
 		child.position.y += randf_range(-50, 50)
-		child.get_child(0).self_modulate = menu_bg_colours[cur_sel] + Color(randf_range(-0.1, 0.1), randf_range(-0.1, 0.1), randf_range(-0.1, 0.1 ))
+		child.get_child(0).self_modulate = menu_bg_colours[cur_sel] + Color(randf_range(-0.1, 0.1), randf_range(-0.1, 0.1), randf_range(-0.1, 0.1))
 
 
 func _process(delta: float) -> void:
