@@ -1,0 +1,11 @@
+- Gamemodes
+	- Classic smash
+	- Quick fight
+	- The Floor is Wawa ![[Pasted image 20250331175226.png]]
+- Lives
+- Starting damage
+- Damage multiplier
+- Knockback multiplier
+- Gravity multiplier
+- Speed multiplier
+- Time multiplier (don't do this)

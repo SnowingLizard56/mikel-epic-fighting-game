@@ -15,11 +15,10 @@ func _ready() -> void:
 		sector_positions.append(sector + Vector2(randf_range(-240, 240), randf_range(-135, 135)))
 	self_modulate = Color(randf(), randf(), randf(), 0.1)
 	rotation_degrees = randf() * 360
+	scale = Vector2.ONE * randf_range(0.9, 1.1)
 
 
 func _process(delta: float) -> void:
 	rotation_degrees += rotation_direction * rotation_speed * delta
-	if menu.state == 1:
-		position = lerp(position, sector_positions[1], 0.15)
-	if menu.state == 2:
+	if menu.state > 0:
 		position = lerp(position, sector_positions[menu.main_selection], 0.15)
