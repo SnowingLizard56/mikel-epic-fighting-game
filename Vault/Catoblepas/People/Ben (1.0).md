@@ -4,7 +4,7 @@ Bro thinks he's Quincy
 
 | Ability     | Name            | Effect Description                                                                                                                                   | Numbers / Notes                                   |
 | ----------- | --------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------- |
-| Melee       | N/A             |                                                                                                                                                      |                                                   |
+| Melee       | Brass Knuckle   |                                                                                                                                                      |                                                   |
 | Grab        | N/A             |                                                                                                                                                      |                                                   |
 | Side        | Piercing Arrow  | Ben fires an arrow horizontally.                                                                                                                     | Pierce                                            |
 | Air Down    | Piercing Arrow  | Ben fires an arrow downwards.                                                                                                                        | Pierce                                            |

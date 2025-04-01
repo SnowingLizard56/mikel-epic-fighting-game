@@ -10,5 +10,5 @@ Brawlhalla fr
 | Air Down    |      |                    |                 |
 | Ground Down |      |                    |                 |
 | Neutral     |      |                    |                 |
-| Recovery    |      |                    |                 |
+| Recovery    |      |                    | Kirby Recovery  |
 | Ultimate    |      |                    |                 |

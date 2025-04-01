@@ -1,0 +1,1 @@
+Target player(s) become stationary, unable to attack.  To escape, button mash(?)

@@ -1,0 +1,1 @@
+Target player(s) have their walk/run speed and jump height decreased - all other movement move at the same speed.

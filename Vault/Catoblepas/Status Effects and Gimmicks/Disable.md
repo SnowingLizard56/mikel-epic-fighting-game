@@ -1,0 +1,1 @@
+Cannot attack or perform special moves, but can still walk/run and jump

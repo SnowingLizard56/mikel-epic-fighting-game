@@ -1,4 +1,4 @@
-Weapon: Undecided
+Weapon: Umbrella and Laptop
 idk man idk
 # Loadout
 
@@ -10,5 +10,5 @@ idk man idk
 | Air Down    | N/A  |                    |                 |
 | Ground Down | N/A  |                    |                 |
 | Neutral     | N/A  |                    |                 |
-| Recovery    | N/A  |                    |                 |
+| Recovery    | N/A  |                    | Peach Recovery  |
 | Ultimate    | N/A  |                    |                 |
