@@ -4,7 +4,9 @@ class_name BaseState extends Node
 @onready var host: BaseCharacter = get_parent().get_parent()
 @onready var area_blacklist: Array[Area2D] = [%Hitbox]
 var frame: int
-signal hit_detected(char:BaseCharacter)
+signal state_entered
+signal state_exited
+signal hit_detected(target:BaseCharacter)
 
 @export_category("Physics")
 ## Allow jumps in this state. 
@@ -80,4 +82,12 @@ func add_temp_blacklist(area, detect_cooldown) -> void:
 func start() -> void:
 	for i in get_children():
 		if i is Hitbox:
-			i.start_timer.start()
+			i.start()
+	state_entered.emit()
+
+
+func stop() -> void:
+	for i in get_children():
+		if i is Hitbox:
+			i.inactive()
+	state_exited.emit()

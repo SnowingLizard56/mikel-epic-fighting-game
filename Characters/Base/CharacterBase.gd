@@ -205,11 +205,15 @@ func hit(source: Hitbox):
 			knockback = source.global_position.direction_to(centre_of_mass)
 		source.KB_SRC.CHARACTER:
 			knockback = source.host.centre_of_mass.direction_to(centre_of_mass)
+	
 	knockback *= source.knockback_strength
 	knockback *= knockback_taken_multiplier
 	knockback *= state.knockback_taken_multiplier
 	
+	# Modify for Dir
+	knockback *= source.host.facing_dir
+	
 	# Unsure about this
-	knockback *= 1+(hp / 100)
+	knockback *= 1 + (hp / 100)
 	
 	# TODO - do something with the knockback variable. god knows what

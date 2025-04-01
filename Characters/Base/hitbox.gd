@@ -7,6 +7,7 @@ enum KB_SRC {
 	CHARACTER
 }
 
+
 @export_category("Hitbox Parameters")
 ## How long before something can be detected again.
 ## 0.0 will detect it every frame, anything negative will detect it once for as long as its in this state, anything else is time in seconds.
@@ -22,20 +23,26 @@ enum KB_SRC {
 @export var knockback_origin_type: KB_SRC
 ## Direction of knockback when origin is Custom. This is normalised on runtime
 @export var knockback_direction := Vector2.RIGHT
-## Knockback strength (proportional to health) (who fucking knows what this is measured in)
+## Knockback strength (This is multiplied by damage function later) (who fucking knows what this is measured in)
 @export var knockback_strength := 0.0
 
+var host: Node2D
 var state: BaseState
-var host: BaseCharacter
+var proj: BaseProjectile
 var start_timer: Timer
 var end_timer: Timer
+var collision: CollisionShape2D
 
 
 func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
-	state = get_parent()
-	host = state.host
+	if get_parent() is BaseState:
+		state = get_parent()
+		host = state.host
+	elif get_parent() is BaseProjectile:
+		proj = get_parent()
+		host = proj
 	start_timer = get_child(0)
 	end_timer = get_child(1)
 
@@ -60,6 +67,8 @@ func _physics_process(delta: float) -> void:
 func _process(delta: float) -> void:
 	if !Engine.is_editor_hint() or get_child_count() > 0:
 		return
+	if not (get_parent() is BaseState or get_parent() is BaseProjectile):
+		push_warning("Hitbox must be child of a state or a projectile.")
 	for i in 2:
 		var t = Timer.new()
 		add_child(t)
@@ -73,8 +82,23 @@ func _process(delta: float) -> void:
 	collision_layer = 0
 	collision_mask = 2
 	get_child(0).timeout.connect(get_child(1).start, CONNECT_PERSIST)
+	get_child(1).timeout.connect(inactive, CONNECT_PERSIST)
 
 
 func process_hit(area: Area2D):
-	area.host.hit(self)
+	area.hit(self)
 	state.hit_detected.emit(area.host)
+
+
+func start():
+	start_timer.start()
+
+
+func active():
+	collision.set_deferred("disabled", false)
+
+
+func inactive():
+	start_timer.stop()
+	end_timer.stop()
+	collision.set_deferred("disabled", true)

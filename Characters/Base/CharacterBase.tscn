@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://blhx0vnt7st2p"]
+[gd_scene load_steps=10 format=3 uid="uid://blhx0vnt7st2p"]
 
 [ext_resource type="Script" uid="uid://ic2eyu54kp66" path="res://Characters/Base/CharacterBase.gd" id="1_s88hy"]
 [ext_resource type="Script" uid="uid://c4psqrs01olrq" path="res://Characters/Example/States/IdleState.gd" id="2_s8nxr"]
 [ext_resource type="Script" uid="uid://kweq1j6mjprm" path="res://Characters/Base/StateBase.gd" id="3_0t1o6"]
 [ext_resource type="SpriteFrames" uid="uid://uubk00ywxenw" path="res://Characters/Example/CharacterBase.tres" id="3_bsg12"]
 [ext_resource type="Script" uid="uid://bn8g23mytsl6s" path="res://Characters/Base/hitbox.gd" id="3_s8nxr"]
+[ext_resource type="Script" uid="uid://b4wxsbaxamlgy" path="res://Characters/Base/entity_emitter.gd" id="5_qsuow"]
 [ext_resource type="Script" uid="uid://bvem3x021anwx" path="res://Characters/Base/player_hurtbox.gd" id="6_0t1o6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s88hy"]
@@ -46,6 +47,10 @@ one_shot = true
 [node name="GrabSuccess" type="Node2D" parent="StateMachine"]
 
 [node name="SideSpecial" type="Node2D" parent="StateMachine"]
+script = ExtResource("3_0t1o6")
+
+[node name="EntityEmitter" type="Node2D" parent="StateMachine/SideSpecial"]
+script = ExtResource("5_qsuow")
 
 [node name="UpSpecial" type="Node2D" parent="StateMachine"]
 
@@ -73,3 +78,4 @@ position = Vector2(0, -21)
 shape = SubResource("CircleShape2D_s88hy")
 
 [connection signal="timeout" from="StateMachine/Melee/Hitbox/StartTime" to="StateMachine/Melee/Hitbox/ActiveTime" method="start"]
+[connection signal="timeout" from="StateMachine/Melee/Hitbox/ActiveTime" to="StateMachine/Melee/Hitbox" method="inactive"]
