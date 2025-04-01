@@ -134,6 +134,108 @@ unique_name_in_owner = true
 self_modulate = Color(1, 1, 1, 0.392157)
 mesh = SubResource("BoxMesh_at0u2")
 
+[node name="UI" type="CanvasLayer" parent="."]
+offset = Vector2(0, 1080)
+transform = Transform2D(1, 0, 0, 1, 0, 1080)
+
+[node name="C" type="Label" parent="UI"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -200.0
+offset_top = -80.0
+offset_right = -100.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 6
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 6
+theme_override_constants/shadow_outline_size = 3
+theme_override_font_sizes/font_size = 40
+text = "C"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="F" type="Label" parent="UI"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = -80.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 6
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 6
+theme_override_constants/shadow_outline_size = 3
+theme_override_font_sizes/font_size = 40
+text = "F"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="I" type="Label" parent="UI"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_top = -80.0
+offset_right = 100.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 6
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 6
+theme_override_constants/shadow_outline_size = 3
+theme_override_font_sizes/font_size = 40
+text = "I"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="S" type="Label" parent="UI"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 100.0
+offset_top = -80.0
+offset_right = 200.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 6
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 6
+theme_override_constants/shadow_outline_size = 3
+theme_override_font_sizes/font_size = 40
+text = "S"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="UISelectionShader" type="ColorRect" parent="UI"]
+unique_name_in_owner = true
+offset_left = 860.0
+offset_top = 1000.0
+offset_right = 960.0
+offset_bottom = 1060.0
+color = Color(1, 1, 1, 0.392157)
+
 [node name="MenuOptions" type="CanvasLayer" parent="."]
 offset = Vector2(0, 1080)
 transform = Transform2D(1, 0, 0, 1, 0, 1080)
@@ -353,13 +455,9 @@ theme_override_font_sizes/font_size = 40
 text = "Appearances:
 Ben
 Daniel
-Evelyn
 Joe
-Michael
 Mikel
 Moqi
-Nora
-Ollie
 Sylvia"
 horizontal_alignment = 1
 vertical_alignment = 1

@@ -55,9 +55,11 @@ func _process(delta: float) -> void:
 				main_selection = 1
 				title_state = 0
 	if state == 1:
+		$UI.offset.y = lerp($UI.offset.y, 0.0, 0.1)
 		$MenuOptions.offset.y = lerp($MenuOptions.offset.y, 0.0, 0.1)
 		$Menu.offset.y = lerp($Menu.offset.y, -1080.0, 0.1)
 		%ForegroundBox.self_modulate = lerp(%ForegroundBox.self_modulate, menu_bg_colours[main_selection + 1], 0.15)
+		%UISelectionShader.position.x = lerp(%UISelectionShader.position.x, 760.0 + (main_selection * 100), 0.15)
 		if Input.is_action_just_pressed("left") and main_selection > 0:
 			main_selection -= 1
 			target_offset += 1920
@@ -69,6 +71,7 @@ func _process(delta: float) -> void:
 	if state > 1:
 		if Input.is_action_just_pressed("back"):
 			state = 1
+		$UI.offset.y = lerp($UI.offset.y, 1080.0, 0.1)
 		$MenuOptions.offset.y = lerp($MenuOptions.offset.y, 1080.0, 0.1)
 		$Menu.offset.y = lerp($Menu.offset.y, 0.0, 0.1)
 		%ForegroundBox.self_modulate = lerp(%ForegroundBox.self_modulate, menu_bg_colours[main_selection + 1], 0.15)
