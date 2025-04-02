@@ -8,6 +8,7 @@ var title_fade_progress: float = 0.0
 var main_selection: int = 1
 var target_offset: float = 0.0
 var menu_bg_colours: Array[Color] = []
+var current_menu_selection: int = 0
 
 
 func _ready() -> void:
@@ -21,12 +22,13 @@ func _ready() -> void:
 		child.rotation_degrees = randf_range(-20, 20)
 		child.position.y += randf_range(-50, 50)
 		child.get_child(0).self_modulate = menu_bg_colours[cur_sel] + Color(randf_range(-0.1, 0.1), randf_range(-0.1, 0.1), randf_range(-0.1, 0.1))
-	$Menu/FightRuleset/RulesetTitle.self_modulate = $MenuOptions/Fight/Fight.self_modulate
+	%FightRuleset/RulesetTitle.self_modulate = $MenuOptions/Fight/Fight.self_modulate
 
 
 func _process(delta: float) -> void:
 	$MenuOptions.offset.x = lerp($MenuOptions.offset.x, target_offset, 0.1)
 	$Menu.offset.x = lerp($Menu.offset.x, target_offset, 0.1)
+	# Title screen
 	if state == 0:
 		%ForegroundBox.self_modulate = lerp(%ForegroundBox.self_modulate, menu_bg_colours[0], 0.15)
 		if title_state == 1:
@@ -54,6 +56,7 @@ func _process(delta: float) -> void:
 				state = 1
 				main_selection = 1
 				title_state = 0
+	# Main menu
 	if state == 1:
 		$UI.offset.y = lerp($UI.offset.y, 0.0, 0.1)
 		$MenuOptions.offset.y = lerp($MenuOptions.offset.y, 0.0, 0.1)
@@ -68,9 +71,14 @@ func _process(delta: float) -> void:
 			target_offset -= 1920
 		elif Input.is_action_just_pressed("select"):
 			state = 2 + main_selection
+	# Specific menu
 	if state > 1:
 		if Input.is_action_just_pressed("back"):
 			state = 1
+		if Input.is_action_just_pressed("up") and current_menu_selection > 0:
+			current_menu_selection -= 1
+		if Input.is_action_just_pressed("down"):
+			current_menu_selection += 1
 		$UI.offset.y = lerp($UI.offset.y, 1080.0, 0.1)
 		$MenuOptions.offset.y = lerp($MenuOptions.offset.y, 1080.0, 0.1)
 		$Menu.offset.y = lerp($Menu.offset.y, 0.0, 0.1)
@@ -78,6 +86,13 @@ func _process(delta: float) -> void:
 		for child in $Menu.get_children():
 			child.hide()
 		$Menu.get_child(main_selection).show()
+		if state == 3:
+			if current_menu_selection == 0:
+				%FightRuleset/GamemodeShader.color = lerp(%FightRuleset/GamemodeShader.color, menu_bg_colours[main_selection + 1], 0.15)
+			else:
+				%FightRuleset/GamemodeShader.color = lerp(%FightRuleset/GamemodeShader.color, Color(1, 1, 1, 0.25), 0.15)
+			if current_menu_selection == 1:
+				pass
 
 
 func _on_any_button_flicker_timeout() -> void:
