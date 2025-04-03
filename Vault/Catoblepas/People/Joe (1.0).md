@@ -1,4 +1,4 @@
-Weapon: Undecided
+Weapon: Comically large revolver
 tbd
 # Loadout
 
