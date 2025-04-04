@@ -1,5 +1,5 @@
-Weapon: Double-Headed Spear
-Brawlhalla fr
+Weapon: Umbrella and Laptop
+idk man idk
 # Loadout
 
 | Ability     | Name | Effect Description | Numbers / Notes |
@@ -10,5 +10,5 @@ Brawlhalla fr
 | Air Down    |      |                    |                 |
 | Ground Down |      |                    |                 |
 | Neutral     |      |                    |                 |
-| Recovery    |      |                    | Kirby Recovery  |
+| Recovery    |      |                    | Peach Recovery  |
 | Ultimate    |      |                    |                 |

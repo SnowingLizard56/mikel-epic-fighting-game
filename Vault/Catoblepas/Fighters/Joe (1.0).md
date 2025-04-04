@@ -1,0 +1,14 @@
+Weapon: Comically large revolver
+tbd
+# Loadout
+
+| Ability     | Name               | Effect Description                                                                                                                                              | Numbers / Notes                                                            |
+| ----------- | ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| Melee       | How to use a gun   | Hit target(s) with the gun                                                                                                                                      |                                                                            |
+| Grab        | N/A                |                                                                                                                                                                 |                                                                            |
+| Side        | C4 Bullets         | Fires a bullet that sticks onto targets and detonates after 3 seconds, dealing AOE explosion damage.                                                            | Mega Man side special                                                      |
+| Air Down    | Sticky Mine Launch | Throw a mine directly below the player which explodes upon contact.                                                                                             | Similar to [[Mikel (1.0)\|Mikel's]] Air Down.<br>Mine has the same effect. |
+| Ground Down | Sticky Mine        | Place a mine - this can be detonated with a second, repeated input.  Upon detonation, it deals explosive damage and [[Impede\|impedes]] target(s) for 1 second. |                                                                            |
+| Neutral     | Boolets            | Shoot a medium-high damage bullet.  Minimum of 0.5 seconds between each shot.                                                                                   | Chamber headhunter                                                         |
+| Recovery    | Joyride            | Equip a fast-moving controllable jetpack that explodes upon contact and gives the player a little extra height.                                                 | Player is not affected by the expolsion                                    |
+| Ultimate    | Pachinko           | Crosses appear across the map in short intervals, which each spewing 8 bullets which spread out.  The onslaught continues for 6 seconds.                        | Tack shooter                                                               |
