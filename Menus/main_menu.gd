@@ -83,16 +83,40 @@ func _process(delta: float) -> void:
 		$MenuOptions.offset.y = lerp($MenuOptions.offset.y, 1080.0, 0.1)
 		$Menu.offset.y = lerp($Menu.offset.y, 0.0, 0.1)
 		%ForegroundBox.self_modulate = lerp(%ForegroundBox.self_modulate, menu_bg_colours[main_selection + 1], 0.15)
+		for i in 3:
+			%FightRuleset.get_child(i + 2).position.x = lerp(%FightRuleset.get_child(i + 2).position.x, -880.0 + (Global.gamemode * 352) + (i * 352), 0.15)
+		var n: int = 0
+		for child in %FightRuleset/LifeNumbers.get_children():
+			child.position.x = lerp(child.position.x, 176.0 - (Global.lives * 176) + (n * 176), 0.15)
+			child.self_modulate.a = sqrt(3.25 / (1 + (2.25 * (rad_to_deg(cos(deg_to_rad(child.position.x / 3))) ** 2)))) * rad_to_deg(cos(deg_to_rad(child.position.x / 3)))
+			if n == 0:
+				print(child.position.x)
+				print(child.self_modulate.a)
+			if child.position.x < 550 and child.position.x > -550:
+				child.show()
+			else:
+				child.hide()
+			n += 1
 		for child in $Menu.get_children():
 			child.hide()
 		$Menu.get_child(main_selection).show()
 		if state == 3:
 			if current_menu_selection == 0:
 				%FightRuleset/GamemodeShader.color = lerp(%FightRuleset/GamemodeShader.color, menu_bg_colours[main_selection + 1], 0.15)
+				if Input.is_action_just_pressed("right") and Global.gamemode > 0:
+					Global.gamemode -= 1
+				if Input.is_action_just_pressed("left") and Global.gamemode < 2:
+					Global.gamemode += 1
 			else:
 				%FightRuleset/GamemodeShader.color = lerp(%FightRuleset/GamemodeShader.color, Color(1, 1, 1, 0.25), 0.15)
 			if current_menu_selection == 1:
-				pass
+				%FightRuleset/LivesShader.color = lerp(%FightRuleset/LivesShader.color, menu_bg_colours[main_selection + 1], 0.15)
+				if Input.is_action_just_pressed("right") and Global.lives < 10:
+					Global.lives += 1
+				if Input.is_action_just_pressed("left") and Global.lives > 1:
+					Global.lives -= 1
+			else:
+				%FightRuleset/LivesShader.color = lerp(%FightRuleset/LivesShader.color, Color(1, 1, 1, 0.25), 0.15)
 
 
 func _on_any_button_flicker_timeout() -> void:
