@@ -11,6 +11,7 @@ var menu_bg_colours: Array[Color] = []
 var current_menu_selection: int = 0
 
 
+# Setup
 func _ready() -> void:
 	%Title.self_modulate.a = 0
 	$TitleScreen/AnyButton.hide()
@@ -31,6 +32,7 @@ func _process(delta: float) -> void:
 	# Title screen
 	if state == 0:
 		%ForegroundBox.self_modulate = lerp(%ForegroundBox.self_modulate, menu_bg_colours[0], 0.15)
+		# Fade in
 		if title_state == 1:
 			%Title.self_modulate.a += delta / 1.5
 			title_fade_progress += delta / 1.5
@@ -41,13 +43,16 @@ func _process(delta: float) -> void:
 			if %Title.self_modulate.a > 0.95:
 				%Title.self_modulate.a = 1
 				title_state += 1
+		# Press any button blink
 		if title_state == 2:
 			$TitleScreen/AnyButtonFlicker.start()
 			title_state += 1
+		# Waiting for input
 		if title_state == 3 and Input.is_anything_pressed():
 			title_state += 1
 			$TitleScreen/AnyButtonFlicker.stop()
 			$TitleScreen/AnyButton.hide()
+		# Fade out
 		if title_state == 4:
 			%Title.self_modulate.a -= delta
 			if %Title.self_modulate.a < 0.05:
@@ -83,24 +88,37 @@ func _process(delta: float) -> void:
 		$MenuOptions.offset.y = lerp($MenuOptions.offset.y, 1080.0, 0.1)
 		$Menu.offset.y = lerp($Menu.offset.y, 0.0, 0.1)
 		%ForegroundBox.self_modulate = lerp(%ForegroundBox.self_modulate, menu_bg_colours[main_selection + 1], 0.15)
-		for i in 3:
-			%FightRuleset.get_child(i + 2).position.x = lerp(%FightRuleset.get_child(i + 2).position.x, -880.0 + (Global.gamemode * 352) + (i * 352), 0.15)
-		var n: int = 0
-		for child in %FightRuleset/LifeNumbers.get_children():
-			child.position.x = lerp(child.position.x, 176.0 - (Global.lives * 176) + (n * 176), 0.15)
-			child.self_modulate.a = sqrt(3.25 / (1 + (2.25 * (rad_to_deg(cos(deg_to_rad(child.position.x / 3))) ** 2)))) * rad_to_deg(cos(deg_to_rad(child.position.x / 3)))
-			if n == 0:
-				print(child.position.x)
-				print(child.self_modulate.a)
-			if child.position.x < 550 and child.position.x > -550:
-				child.show()
-			else:
-				child.hide()
-			n += 1
 		for child in $Menu.get_children():
 			child.hide()
 		$Menu.get_child(main_selection).show()
+		# FIGHT menu
 		if state == 3:
+			# Moving gamemode selection
+			for i in 3:
+				%FightRuleset.get_child(i + 2).position.x = lerp(%FightRuleset.get_child(i + 2).position.x, -880.0 + (Global.gamemode * 352) + (i * 352), 0.15)
+			# Moving lives numbers
+			var n: int = 0
+			for child in %FightRuleset/LifeNumbers.get_children():
+				child.position.x = lerp(child.position.x, 176.0 - (Global.lives * 176) + (n * 176), 0.15)
+				child.self_modulate.a = sqrt(3.25 / (1 + (2.25 * (cos(deg_to_rad(child.position.x / 5))) ** 2))) * cos(deg_to_rad(child.position.x / 5))
+				child.self_modulate.a = clamp(child.self_modulate.a, 0.0, 1.0)
+				if child.position.x < 800 and child.position.x > -800:
+					child.show()
+				else:
+					child.hide()
+				n += 1
+			# Moving starting damage numbers
+			n = 0
+			for child in %FightRuleset/StartDmgNumbers.get_children():
+				child.position.x = lerp(child.position.x, 0.0 - ((Global.starting_damage / 10) * 176) + (n * 176), 0.15)
+				child.self_modulate.a = sqrt(3.25 / (1 + (2.25 * (cos(deg_to_rad(child.position.x / 5))) ** 2))) * cos(deg_to_rad(child.position.x / 5))
+				child.self_modulate.a = clamp(child.self_modulate.a, 0.0, 1.0)
+				if child.position.x < 800 and child.position.x > -800:
+					child.show()
+				else:
+					child.hide()
+				n += 1
+			# Gamemode select
 			if current_menu_selection == 0:
 				%FightRuleset/GamemodeShader.color = lerp(%FightRuleset/GamemodeShader.color, menu_bg_colours[main_selection + 1], 0.15)
 				if Input.is_action_just_pressed("right") and Global.gamemode > 0:
@@ -109,6 +127,7 @@ func _process(delta: float) -> void:
 					Global.gamemode += 1
 			else:
 				%FightRuleset/GamemodeShader.color = lerp(%FightRuleset/GamemodeShader.color, Color(1, 1, 1, 0.25), 0.15)
+			# Lives select
 			if current_menu_selection == 1:
 				%FightRuleset/LivesShader.color = lerp(%FightRuleset/LivesShader.color, menu_bg_colours[main_selection + 1], 0.15)
 				if Input.is_action_just_pressed("right") and Global.lives < 10:
@@ -117,6 +136,15 @@ func _process(delta: float) -> void:
 					Global.lives -= 1
 			else:
 				%FightRuleset/LivesShader.color = lerp(%FightRuleset/LivesShader.color, Color(1, 1, 1, 0.25), 0.15)
+			# Start damage select
+			if current_menu_selection == 2:
+				%FightRuleset/StartDmgShader.color = lerp(%FightRuleset/StartDmgShader.color, menu_bg_colours[main_selection + 1], 0.15)
+				if Input.is_action_just_pressed("right") and Global.starting_damage < 100.0:
+					Global.starting_damage += 10
+				if Input.is_action_just_pressed("left") and Global.starting_damage > 0.0:
+					Global.starting_damage -= 10
+			else:
+				%FightRuleset/StartDmgShader.color = lerp(%FightRuleset/StartDmgShader.color, Color(1, 1, 1, 0.25), 0.15)
 
 
 func _on_any_button_flicker_timeout() -> void:
