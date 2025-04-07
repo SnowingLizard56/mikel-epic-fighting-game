@@ -11,10 +11,12 @@ signal hit_detected(target:BaseCharacter)
 @export_category("Physics")
 ## Allow jumps in this state. 
 @export var allow_jumps := false
-## Alter velocity on frame 0?
+## Alter velocity on frame?
 @export var set_velocity := false
-## Velocity to set to on frame 0
+## Velocity to set to on frame
 @export var velocity := Vector2.ZERO
+## Frame to set velocity on
+@export var set_velocity_frame := 0
 
 @export_category("Physics Overrides")
 ## Whether or not to apply this value instead of host value

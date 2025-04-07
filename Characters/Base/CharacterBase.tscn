@@ -52,6 +52,9 @@ script = ExtResource("3_0t1o6")
 [node name="EntityEmitter" type="Node2D" parent="StateMachine/SideSpecial"]
 script = ExtResource("5_qsuow")
 
+[node name="StartTime" type="Timer" parent="StateMachine/SideSpecial/EntityEmitter"]
+one_shot = true
+
 [node name="UpSpecial" type="Node2D" parent="StateMachine"]
 
 [node name="DownSpecial" type="Node2D" parent="StateMachine"]
@@ -79,3 +82,4 @@ shape = SubResource("CircleShape2D_s88hy")
 
 [connection signal="timeout" from="StateMachine/Melee/Hitbox/StartTime" to="StateMachine/Melee/Hitbox/ActiveTime" method="start"]
 [connection signal="timeout" from="StateMachine/Melee/Hitbox/ActiveTime" to="StateMachine/Melee/Hitbox" method="inactive"]
+[connection signal="timeout" from="StateMachine/SideSpecial/EntityEmitter/StartTime" to="StateMachine/SideSpecial/EntityEmitter" method="emit"]

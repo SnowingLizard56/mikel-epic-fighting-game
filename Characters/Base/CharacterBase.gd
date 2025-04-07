@@ -3,6 +3,7 @@ class_name BaseCharacter extends CharacterBody2D
 var hp := 0.0
 var stocks := 0
 var hitstun_time := 0.0
+var knockback_velocity := Vector2.ZERO
 @onready var states: Array = get_child(0).get_children()
 @onready var state: BaseState = states[0]:
 	set(v):
@@ -14,6 +15,8 @@ var facing_dir: int
 var centre_of_mass: Vector2:
 	get():
 		return %Hitbox.get_child(0).global_position
+
+signal ui_update
 
 
 @export_category("Jumping")
@@ -54,6 +57,8 @@ var centre_of_mass: Vector2:
 @export var knockback_taken_multiplier := 1.0
 ## Multplier to hitstun on self.
 @export var hitstun_taken_multiplier := 1.0
+## Smoothing for knockback damping.
+@export var knockback_damp_smoothing := 0.0
 
 @export_category("Inputs & What They Do")
 
@@ -103,6 +108,7 @@ func _physics_process(delta: float) -> void:
 	# PLEASE remember to change this input. good lord
 	dir_input = Vector2(Input.get_axis("ui_left", "ui_right"), Input.get_axis("ui_up", "ui_down"))
 	movement(dir_input, delta, Input.is_action_just_pressed("ui_accept"))
+	# Check for 
 
 
 func damp(source:float, target:float, smoothing:float, dt:float) -> float:
@@ -117,79 +123,86 @@ func movement(dir:Vector2, delta:float, jump:bool) -> void:
 		real_gravity = state.gravity
 	else:
 		real_gravity = gravity
-	# Terminal Velocity
-	var real_terminal_velocity
-	if state.override_max_fall_speed:
-		real_terminal_velocity = state.max_fall_speed
+	# Controlled movement
+	if knockback_velocity:
+		velocity = knockback_velocity
+		velocity.y -= (real_gravity * delta) / velocity.length()
+		knockback_velocity = velocity.limit_length(damp(velocity.length(), 0.0, knockback_damp_smoothing, delta))
 	else:
-		real_terminal_velocity = max_fall_speed
-	#
-	velocity.y = move_toward(velocity.y, real_terminal_velocity, real_gravity * delta)
-	
-	# Input
-	if dir.x:
-		# Horizontal
-		var real_input_force
-		if is_on_floor():
-			if state.override_ground_control_force:
-				real_input_force = state.ground_control_force
-			else:
-				real_input_force = ground_control_force
+		# Terminal Velocity
+		var real_terminal_velocity
+		if state.override_max_fall_speed:
+			real_terminal_velocity = state.max_fall_speed
 		else:
-			if state.override_air_control_force:
-				real_input_force = state.air_control_force
-			else:
-				real_input_force = air_control_force
+			real_terminal_velocity = max_fall_speed
+		#
+		velocity.y = move_toward(velocity.y, real_terminal_velocity, real_gravity * delta)
 		
-		# Max speed
-		var real_max_speed
-		if is_on_floor():
-			if state.override_max_ground_speed:
-				real_max_speed = state.max_ground_speed
+		# Input
+		if dir.x:
+			# Horizontal
+			var real_input_force
+			if is_on_floor():
+				if state.override_ground_control_force:
+					real_input_force = state.ground_control_force
+				else:
+					real_input_force = ground_control_force
 			else:
-				real_max_speed = max_ground_speed
+				if state.override_air_control_force:
+					real_input_force = state.air_control_force
+				else:
+					real_input_force = air_control_force
+			
+			# Max speed
+			var real_max_speed
+			if is_on_floor():
+				if state.override_max_ground_speed:
+					real_max_speed = state.max_ground_speed
+				else:
+					real_max_speed = max_ground_speed
+			else:
+				if state.override_max_air_speed:
+					real_max_speed = state.max_air_speed
+				else:
+					real_max_speed = max_air_speed
+			#
+			velocity.x = move_toward(velocity.x, real_max_speed * dir.x, real_input_force * delta)
 		else:
-			if state.override_max_air_speed:
-				real_max_speed = state.max_air_speed
+			# Friction
+			var real_friction
+			if is_on_floor():
+				if state.override_ground_friction:
+					real_friction = state.ground_friction
+				else:
+					real_friction = ground_friction
 			else:
-				real_max_speed = max_air_speed
+				if state.override_air_friction:
+					real_friction = state.air_friction
+				else:
+					real_friction = air_friction
+			# 
+			velocity.x = damp(velocity.x, 0, real_friction, delta)
+		
+		# Jump
+		if jump and state.allow_jumps:
+			# Jump strength
+			var real_jump_impulse := 0.0
+			if is_on_floor():
+				real_jump_impulse = ground_jump_strength
+			elif air_jumps > 0:
+				air_jumps -= 1
+				real_jump_impulse = air_jump_strength
+			else:
+				real_jump_impulse = -velocity.y
+			#
+			velocity.y = -real_jump_impulse
 		#
-		velocity.x = move_toward(velocity.x, real_max_speed * dir.x, real_input_force * delta)
-	else:
-		# Friction
-		var real_friction
-		if is_on_floor():
-			if state.override_ground_friction:
-				real_friction = state.ground_friction
-			else:
-				real_friction = ground_friction
-		else:
-			if state.override_air_friction:
-				real_friction = state.air_friction
-			else:
-				real_friction = air_friction
-		# 
-		velocity.x = damp(velocity.x, 0, real_friction, delta)
-	
-	# Jump
-	if jump and state.allow_jumps:
-		# Jump strength
-		var real_jump_impulse := 0.0
-		if is_on_floor():
-			real_jump_impulse = ground_jump_strength
-		elif air_jumps > 0:
-			air_jumps -= 1
-			real_jump_impulse = air_jump_strength
-		else:
-			real_jump_impulse = -velocity.y
-		#
-		velocity.y = -real_jump_impulse
-	#
-	var was_on_floor = is_on_floor()
-	move_and_slide()
-	# if it is now on the floor and it wasnt before, reset air jumps
-	if is_on_floor() and !was_on_floor:
-		air_jumps = max_air_jumps
+		var was_on_floor = is_on_floor()
+		move_and_slide()
+		# if it is now on the floor and it wasnt before, reset air jumps
+		if is_on_floor() and !was_on_floor:
+			air_jumps = max_air_jumps
+		
 
 
 # Called when __THIS__ character gets hit.
@@ -214,6 +227,7 @@ func hit(source: Hitbox):
 	knockback *= source.host.facing_dir
 	
 	# Unsure about this
-	knockback *= 1 + (hp / 100)
+	knockback *= 1 + (hp / 10) ** 2
 	
-	# TODO - do something with the knockback variable. god knows what
+	knockback_velocity = knockback
+	ui_update.emit()
