@@ -467,6 +467,7 @@ unique_name_in_owner = true
 position = Vector2(960, 540)
 
 [node name="RulesetTitle" type="Label" parent="Menu/FightRuleset"]
+z_index = 2
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -486,7 +487,10 @@ text = "RULESET"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="GamemodeTitle" type="Label" parent="Menu/FightRuleset"]
+[node name="RulesetOptions" type="Node2D" parent="Menu/FightRuleset"]
+unique_name_in_owner = true
+
+[node name="GamemodeTitle" type="Label" parent="Menu/FightRuleset/RulesetOptions"]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -506,7 +510,7 @@ text = "GAMEMODE"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Gamemode0" type="Label" parent="Menu/FightRuleset"]
+[node name="Gamemode0" type="Label" parent="Menu/FightRuleset/RulesetOptions"]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -526,7 +530,7 @@ text = "Quick Fight"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Gamemode1" type="Label" parent="Menu/FightRuleset"]
+[node name="Gamemode1" type="Label" parent="Menu/FightRuleset/RulesetOptions"]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -546,7 +550,7 @@ text = "Classic Smash"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Gamemode2" type="Label" parent="Menu/FightRuleset"]
+[node name="Gamemode2" type="Label" parent="Menu/FightRuleset/RulesetOptions"]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -566,14 +570,14 @@ text = "Lava Floors"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="GamemodeShader" type="ColorRect" parent="Menu/FightRuleset"]
+[node name="GamemodeShader" type="ColorRect" parent="Menu/FightRuleset/RulesetOptions"]
 offset_left = -176.0
 offset_top = -330.0
 offset_right = 176.0
 offset_bottom = -230.0
 color = Color(1, 1, 1, 0.392157)
 
-[node name="LivesTitle" type="Label" parent="Menu/FightRuleset"]
+[node name="LivesTitle" type="Label" parent="Menu/FightRuleset/RulesetOptions"]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -593,10 +597,10 @@ text = "LIVES"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="LifeNumbers" type="Node2D" parent="Menu/FightRuleset"]
+[node name="LifeNumbers" type="Node2D" parent="Menu/FightRuleset/RulesetOptions"]
 position = Vector2(-88, 0)
 
-[node name="1" type="Label" parent="Menu/FightRuleset/LifeNumbers"]
+[node name="1" type="Label" parent="Menu/FightRuleset/RulesetOptions/LifeNumbers"]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -616,7 +620,7 @@ text = "1"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="2" type="Label" parent="Menu/FightRuleset/LifeNumbers"]
+[node name="2" type="Label" parent="Menu/FightRuleset/RulesetOptions/LifeNumbers"]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -635,7 +639,7 @@ text = "2"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="3" type="Label" parent="Menu/FightRuleset/LifeNumbers"]
+[node name="3" type="Label" parent="Menu/FightRuleset/RulesetOptions/LifeNumbers"]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -654,7 +658,7 @@ text = "3"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="4" type="Label" parent="Menu/FightRuleset/LifeNumbers"]
+[node name="4" type="Label" parent="Menu/FightRuleset/RulesetOptions/LifeNumbers"]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -674,7 +678,7 @@ text = "4"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="5" type="Label" parent="Menu/FightRuleset/LifeNumbers"]
+[node name="5" type="Label" parent="Menu/FightRuleset/RulesetOptions/LifeNumbers"]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -694,7 +698,7 @@ text = "5"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="6" type="Label" parent="Menu/FightRuleset/LifeNumbers"]
+[node name="6" type="Label" parent="Menu/FightRuleset/RulesetOptions/LifeNumbers"]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -714,7 +718,7 @@ text = "6"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="7" type="Label" parent="Menu/FightRuleset/LifeNumbers"]
+[node name="7" type="Label" parent="Menu/FightRuleset/RulesetOptions/LifeNumbers"]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -734,7 +738,7 @@ text = "7"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="8" type="Label" parent="Menu/FightRuleset/LifeNumbers"]
+[node name="8" type="Label" parent="Menu/FightRuleset/RulesetOptions/LifeNumbers"]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -754,7 +758,7 @@ text = "8"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="9" type="Label" parent="Menu/FightRuleset/LifeNumbers"]
+[node name="9" type="Label" parent="Menu/FightRuleset/RulesetOptions/LifeNumbers"]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -774,7 +778,7 @@ text = "9"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="10" type="Label" parent="Menu/FightRuleset/LifeNumbers"]
+[node name="10" type="Label" parent="Menu/FightRuleset/RulesetOptions/LifeNumbers"]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -794,14 +798,14 @@ text = "10"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="LivesShader" type="ColorRect" parent="Menu/FightRuleset"]
+[node name="LivesShader" type="ColorRect" parent="Menu/FightRuleset/RulesetOptions"]
 offset_left = -88.0
 offset_top = -130.0
 offset_right = 88.0
 offset_bottom = -30.0
 color = Color(1, 1, 1, 0.392157)
 
-[node name="StartingDamage" type="Label" parent="Menu/FightRuleset"]
+[node name="StartingDamage" type="Label" parent="Menu/FightRuleset/RulesetOptions"]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -821,10 +825,10 @@ text = "STARTING DAMAGE"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="StartDmgNumbers" type="Node2D" parent="Menu/FightRuleset"]
+[node name="StartDmgNumbers" type="Node2D" parent="Menu/FightRuleset/RulesetOptions"]
 position = Vector2(-88, 0)
 
-[node name="0" type="Label" parent="Menu/FightRuleset/StartDmgNumbers"]
+[node name="0" type="Label" parent="Menu/FightRuleset/RulesetOptions/StartDmgNumbers"]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -843,7 +847,7 @@ text = "0%"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="10" type="Label" parent="Menu/FightRuleset/StartDmgNumbers"]
+[node name="10" type="Label" parent="Menu/FightRuleset/RulesetOptions/StartDmgNumbers"]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -863,7 +867,7 @@ text = "10%"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="20" type="Label" parent="Menu/FightRuleset/StartDmgNumbers"]
+[node name="20" type="Label" parent="Menu/FightRuleset/RulesetOptions/StartDmgNumbers"]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -883,7 +887,7 @@ text = "20%"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="30" type="Label" parent="Menu/FightRuleset/StartDmgNumbers"]
+[node name="30" type="Label" parent="Menu/FightRuleset/RulesetOptions/StartDmgNumbers"]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -903,7 +907,7 @@ text = "30%"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="40" type="Label" parent="Menu/FightRuleset/StartDmgNumbers"]
+[node name="40" type="Label" parent="Menu/FightRuleset/RulesetOptions/StartDmgNumbers"]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -923,7 +927,7 @@ text = "40%"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="50" type="Label" parent="Menu/FightRuleset/StartDmgNumbers"]
+[node name="50" type="Label" parent="Menu/FightRuleset/RulesetOptions/StartDmgNumbers"]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -943,7 +947,7 @@ text = "50%"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="60" type="Label" parent="Menu/FightRuleset/StartDmgNumbers"]
+[node name="60" type="Label" parent="Menu/FightRuleset/RulesetOptions/StartDmgNumbers"]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -963,7 +967,7 @@ text = "60%"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="70" type="Label" parent="Menu/FightRuleset/StartDmgNumbers"]
+[node name="70" type="Label" parent="Menu/FightRuleset/RulesetOptions/StartDmgNumbers"]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -983,7 +987,7 @@ text = "70%"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="80" type="Label" parent="Menu/FightRuleset/StartDmgNumbers"]
+[node name="80" type="Label" parent="Menu/FightRuleset/RulesetOptions/StartDmgNumbers"]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -1003,7 +1007,7 @@ text = "80%"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="90" type="Label" parent="Menu/FightRuleset/StartDmgNumbers"]
+[node name="90" type="Label" parent="Menu/FightRuleset/RulesetOptions/StartDmgNumbers"]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -1023,7 +1027,7 @@ text = "90%"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="100" type="Label" parent="Menu/FightRuleset/StartDmgNumbers"]
+[node name="100" type="Label" parent="Menu/FightRuleset/RulesetOptions/StartDmgNumbers"]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -1043,11 +1047,907 @@ text = "100%"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="StartDmgShader" type="ColorRect" parent="Menu/FightRuleset"]
+[node name="StartDmgShader" type="ColorRect" parent="Menu/FightRuleset/RulesetOptions"]
 offset_left = -88.0
 offset_top = 70.0
 offset_right = 88.0
 offset_bottom = 170.0
+color = Color(1, 1, 1, 0.392157)
+
+[node name="DamageMultiplier" type="Label" parent="Menu/FightRuleset/RulesetOptions"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -308.5
+offset_top = 170.0
+offset_right = 307.5
+offset_bottom = 270.0
+grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 9
+theme_override_constants/shadow_offset_y = 5
+theme_override_constants/outline_size = 9
+theme_override_constants/shadow_outline_size = 5
+theme_override_font_sizes/font_size = 60
+text = "DAMAGE MULTIPLIER"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DmgMultNumbers" type="Node2D" parent="Menu/FightRuleset/RulesetOptions"]
+position = Vector2(-88, 0)
+
+[node name="0" type="Label" parent="Menu/FightRuleset/RulesetOptions/DmgMultNumbers"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -704.0
+offset_top = 270.0
+offset_right = -528.0
+offset_bottom = 370.0
+grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 6
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 6
+theme_override_constants/shadow_outline_size = 3
+theme_override_font_sizes/font_size = 40
+text = "NONE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="0_25" type="Label" parent="Menu/FightRuleset/RulesetOptions/DmgMultNumbers"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -528.0
+offset_top = 270.0
+offset_right = -352.0
+offset_bottom = 370.0
+grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 6
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 6
+theme_override_constants/shadow_outline_size = 3
+theme_override_font_sizes/font_size = 40
+text = "x0.25"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="0_5" type="Label" parent="Menu/FightRuleset/RulesetOptions/DmgMultNumbers"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -352.0
+offset_top = 270.0
+offset_right = -176.0
+offset_bottom = 370.0
+grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 6
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 6
+theme_override_constants/shadow_outline_size = 3
+theme_override_font_sizes/font_size = 40
+text = "x0.5"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="0_75" type="Label" parent="Menu/FightRuleset/RulesetOptions/DmgMultNumbers"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -176.0
+offset_top = 270.0
+offset_bottom = 370.0
+grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 6
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 6
+theme_override_constants/shadow_outline_size = 3
+theme_override_font_sizes/font_size = 40
+text = "x0.75"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="1" type="Label" parent="Menu/FightRuleset/RulesetOptions/DmgMultNumbers"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_top = 270.0
+offset_right = 176.0
+offset_bottom = 370.0
+grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 6
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 6
+theme_override_constants/shadow_outline_size = 3
+theme_override_font_sizes/font_size = 40
+text = "x1.0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="1_25" type="Label" parent="Menu/FightRuleset/RulesetOptions/DmgMultNumbers"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 176.0
+offset_top = 270.0
+offset_right = 352.0
+offset_bottom = 370.0
+grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 6
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 6
+theme_override_constants/shadow_outline_size = 3
+theme_override_font_sizes/font_size = 40
+text = "x1.25"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="1_5" type="Label" parent="Menu/FightRuleset/RulesetOptions/DmgMultNumbers"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 352.0
+offset_top = 270.0
+offset_right = 528.0
+offset_bottom = 370.0
+grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 6
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 6
+theme_override_constants/shadow_outline_size = 3
+theme_override_font_sizes/font_size = 40
+text = "x1.5"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="1_75" type="Label" parent="Menu/FightRuleset/RulesetOptions/DmgMultNumbers"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 528.0
+offset_top = 270.0
+offset_right = 704.0
+offset_bottom = 370.0
+grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 6
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 6
+theme_override_constants/shadow_outline_size = 3
+theme_override_font_sizes/font_size = 40
+text = "x1.75"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="2" type="Label" parent="Menu/FightRuleset/RulesetOptions/DmgMultNumbers"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 704.0
+offset_top = 270.0
+offset_right = 880.0
+offset_bottom = 370.0
+grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 6
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 6
+theme_override_constants/shadow_outline_size = 3
+theme_override_font_sizes/font_size = 40
+text = "x2.0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="2_25" type="Label" parent="Menu/FightRuleset/RulesetOptions/DmgMultNumbers"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 880.0
+offset_top = 270.0
+offset_right = 1056.0
+offset_bottom = 370.0
+grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 6
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 6
+theme_override_constants/shadow_outline_size = 3
+theme_override_font_sizes/font_size = 40
+text = "x2.25"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="2_5" type="Label" parent="Menu/FightRuleset/RulesetOptions/DmgMultNumbers"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 1056.0
+offset_top = 270.0
+offset_right = 1232.0
+offset_bottom = 370.0
+grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 6
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 6
+theme_override_constants/shadow_outline_size = 3
+theme_override_font_sizes/font_size = 40
+text = "x2.5"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="2_75" type="Label" parent="Menu/FightRuleset/RulesetOptions/DmgMultNumbers"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 1232.0
+offset_top = 270.0
+offset_right = 1408.0
+offset_bottom = 370.0
+grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 6
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 6
+theme_override_constants/shadow_outline_size = 3
+theme_override_font_sizes/font_size = 40
+text = "x2.75"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="3" type="Label" parent="Menu/FightRuleset/RulesetOptions/DmgMultNumbers"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 1398.0
+offset_top = 270.0
+offset_right = 1574.0
+offset_bottom = 370.0
+grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 6
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 6
+theme_override_constants/shadow_outline_size = 3
+theme_override_font_sizes/font_size = 40
+text = "x3.0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="3_25" type="Label" parent="Menu/FightRuleset/RulesetOptions/DmgMultNumbers"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 1574.0
+offset_top = 270.0
+offset_right = 1750.0
+offset_bottom = 370.0
+grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 6
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 6
+theme_override_constants/shadow_outline_size = 3
+theme_override_font_sizes/font_size = 40
+text = "x3.25"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="3_5" type="Label" parent="Menu/FightRuleset/RulesetOptions/DmgMultNumbers"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 1750.0
+offset_top = 270.0
+offset_right = 1926.0
+offset_bottom = 370.0
+grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 6
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 6
+theme_override_constants/shadow_outline_size = 3
+theme_override_font_sizes/font_size = 40
+text = "x3.5"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="3_75" type="Label" parent="Menu/FightRuleset/RulesetOptions/DmgMultNumbers"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 1926.0
+offset_top = 270.0
+offset_right = 2102.0
+offset_bottom = 370.0
+grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 6
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 6
+theme_override_constants/shadow_outline_size = 3
+theme_override_font_sizes/font_size = 40
+text = "x3.75"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="4" type="Label" parent="Menu/FightRuleset/RulesetOptions/DmgMultNumbers"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 2102.0
+offset_top = 270.0
+offset_right = 2278.0
+offset_bottom = 370.0
+grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 6
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 6
+theme_override_constants/shadow_outline_size = 3
+theme_override_font_sizes/font_size = 40
+text = "x4.0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="4_25" type="Label" parent="Menu/FightRuleset/RulesetOptions/DmgMultNumbers"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 2278.0
+offset_top = 270.0
+offset_right = 2454.0
+offset_bottom = 370.0
+grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 6
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 6
+theme_override_constants/shadow_outline_size = 3
+theme_override_font_sizes/font_size = 40
+text = "x4.25"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="4_5" type="Label" parent="Menu/FightRuleset/RulesetOptions/DmgMultNumbers"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 2454.0
+offset_top = 270.0
+offset_right = 2630.0
+offset_bottom = 370.0
+grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 6
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 6
+theme_override_constants/shadow_outline_size = 3
+theme_override_font_sizes/font_size = 40
+text = "x4.5"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="4_75" type="Label" parent="Menu/FightRuleset/RulesetOptions/DmgMultNumbers"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 2630.0
+offset_top = 270.0
+offset_right = 2806.0
+offset_bottom = 370.0
+grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 6
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 6
+theme_override_constants/shadow_outline_size = 3
+theme_override_font_sizes/font_size = 40
+text = "x4.75"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="5" type="Label" parent="Menu/FightRuleset/RulesetOptions/DmgMultNumbers"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 2806.0
+offset_top = 270.0
+offset_right = 2982.0
+offset_bottom = 370.0
+grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 6
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 6
+theme_override_constants/shadow_outline_size = 3
+theme_override_font_sizes/font_size = 40
+text = "x5.0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DmgMultShader" type="ColorRect" parent="Menu/FightRuleset/RulesetOptions"]
+offset_left = -88.0
+offset_top = 270.0
+offset_right = 88.0
+offset_bottom = 370.0
+color = Color(1, 1, 1, 0.392157)
+
+[node name="KnockbackMultiplier" type="Label" parent="Menu/FightRuleset/RulesetOptions"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -363.0
+offset_top = 370.0
+offset_right = 362.0
+offset_bottom = 470.0
+grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 9
+theme_override_constants/shadow_offset_y = 5
+theme_override_constants/outline_size = 9
+theme_override_constants/shadow_outline_size = 5
+theme_override_font_sizes/font_size = 60
+text = "KNOCKBACK MULTIPLIER"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="KbMultNumbers" type="Node2D" parent="Menu/FightRuleset/RulesetOptions"]
+position = Vector2(-88, 200)
+
+[node name="0" type="Label" parent="Menu/FightRuleset/RulesetOptions/KbMultNumbers"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -704.0
+offset_top = 270.0
+offset_right = -528.0
+offset_bottom = 370.0
+grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 6
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 6
+theme_override_constants/shadow_outline_size = 3
+theme_override_font_sizes/font_size = 40
+text = "NONE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="0_25" type="Label" parent="Menu/FightRuleset/RulesetOptions/KbMultNumbers"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -528.0
+offset_top = 270.0
+offset_right = -352.0
+offset_bottom = 370.0
+grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 6
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 6
+theme_override_constants/shadow_outline_size = 3
+theme_override_font_sizes/font_size = 40
+text = "x0.25"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="0_5" type="Label" parent="Menu/FightRuleset/RulesetOptions/KbMultNumbers"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -352.0
+offset_top = 270.0
+offset_right = -176.0
+offset_bottom = 370.0
+grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 6
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 6
+theme_override_constants/shadow_outline_size = 3
+theme_override_font_sizes/font_size = 40
+text = "x0.5"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="0_75" type="Label" parent="Menu/FightRuleset/RulesetOptions/KbMultNumbers"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -176.0
+offset_top = 270.0
+offset_bottom = 370.0
+grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 6
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 6
+theme_override_constants/shadow_outline_size = 3
+theme_override_font_sizes/font_size = 40
+text = "x0.75"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="1" type="Label" parent="Menu/FightRuleset/RulesetOptions/KbMultNumbers"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_top = 270.0
+offset_right = 176.0
+offset_bottom = 370.0
+grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 6
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 6
+theme_override_constants/shadow_outline_size = 3
+theme_override_font_sizes/font_size = 40
+text = "x1.0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="1_25" type="Label" parent="Menu/FightRuleset/RulesetOptions/KbMultNumbers"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 176.0
+offset_top = 270.0
+offset_right = 352.0
+offset_bottom = 370.0
+grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 6
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 6
+theme_override_constants/shadow_outline_size = 3
+theme_override_font_sizes/font_size = 40
+text = "x1.25"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="1_5" type="Label" parent="Menu/FightRuleset/RulesetOptions/KbMultNumbers"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 352.0
+offset_top = 270.0
+offset_right = 528.0
+offset_bottom = 370.0
+grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 6
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 6
+theme_override_constants/shadow_outline_size = 3
+theme_override_font_sizes/font_size = 40
+text = "x1.5"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="1_75" type="Label" parent="Menu/FightRuleset/RulesetOptions/KbMultNumbers"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 528.0
+offset_top = 270.0
+offset_right = 704.0
+offset_bottom = 370.0
+grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 6
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 6
+theme_override_constants/shadow_outline_size = 3
+theme_override_font_sizes/font_size = 40
+text = "x1.75"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="2" type="Label" parent="Menu/FightRuleset/RulesetOptions/KbMultNumbers"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 704.0
+offset_top = 270.0
+offset_right = 880.0
+offset_bottom = 370.0
+grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 6
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 6
+theme_override_constants/shadow_outline_size = 3
+theme_override_font_sizes/font_size = 40
+text = "x2.0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="2_25" type="Label" parent="Menu/FightRuleset/RulesetOptions/KbMultNumbers"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 880.0
+offset_top = 270.0
+offset_right = 1056.0
+offset_bottom = 370.0
+grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 6
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 6
+theme_override_constants/shadow_outline_size = 3
+theme_override_font_sizes/font_size = 40
+text = "x2.25"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="2_5" type="Label" parent="Menu/FightRuleset/RulesetOptions/KbMultNumbers"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 1056.0
+offset_top = 270.0
+offset_right = 1232.0
+offset_bottom = 370.0
+grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 6
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 6
+theme_override_constants/shadow_outline_size = 3
+theme_override_font_sizes/font_size = 40
+text = "x2.5"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="2_75" type="Label" parent="Menu/FightRuleset/RulesetOptions/KbMultNumbers"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 1232.0
+offset_top = 270.0
+offset_right = 1408.0
+offset_bottom = 370.0
+grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 6
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 6
+theme_override_constants/shadow_outline_size = 3
+theme_override_font_sizes/font_size = 40
+text = "x2.75"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="3" type="Label" parent="Menu/FightRuleset/RulesetOptions/KbMultNumbers"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 1398.0
+offset_top = 270.0
+offset_right = 1574.0
+offset_bottom = 370.0
+grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 6
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 6
+theme_override_constants/shadow_outline_size = 3
+theme_override_font_sizes/font_size = 40
+text = "x3.0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="3_25" type="Label" parent="Menu/FightRuleset/RulesetOptions/KbMultNumbers"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 1574.0
+offset_top = 270.0
+offset_right = 1750.0
+offset_bottom = 370.0
+grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 6
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 6
+theme_override_constants/shadow_outline_size = 3
+theme_override_font_sizes/font_size = 40
+text = "x3.25"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="3_5" type="Label" parent="Menu/FightRuleset/RulesetOptions/KbMultNumbers"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 1750.0
+offset_top = 270.0
+offset_right = 1926.0
+offset_bottom = 370.0
+grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 6
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 6
+theme_override_constants/shadow_outline_size = 3
+theme_override_font_sizes/font_size = 40
+text = "x3.5"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="3_75" type="Label" parent="Menu/FightRuleset/RulesetOptions/KbMultNumbers"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 1926.0
+offset_top = 270.0
+offset_right = 2102.0
+offset_bottom = 370.0
+grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 6
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 6
+theme_override_constants/shadow_outline_size = 3
+theme_override_font_sizes/font_size = 40
+text = "x3.75"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="4" type="Label" parent="Menu/FightRuleset/RulesetOptions/KbMultNumbers"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 2102.0
+offset_top = 270.0
+offset_right = 2278.0
+offset_bottom = 370.0
+grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 6
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 6
+theme_override_constants/shadow_outline_size = 3
+theme_override_font_sizes/font_size = 40
+text = "x4.0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="4_25" type="Label" parent="Menu/FightRuleset/RulesetOptions/KbMultNumbers"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 2278.0
+offset_top = 270.0
+offset_right = 2454.0
+offset_bottom = 370.0
+grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 6
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 6
+theme_override_constants/shadow_outline_size = 3
+theme_override_font_sizes/font_size = 40
+text = "x4.25"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="4_5" type="Label" parent="Menu/FightRuleset/RulesetOptions/KbMultNumbers"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 2454.0
+offset_top = 270.0
+offset_right = 2630.0
+offset_bottom = 370.0
+grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 6
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 6
+theme_override_constants/shadow_outline_size = 3
+theme_override_font_sizes/font_size = 40
+text = "x4.5"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="4_75" type="Label" parent="Menu/FightRuleset/RulesetOptions/KbMultNumbers"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 2630.0
+offset_top = 270.0
+offset_right = 2806.0
+offset_bottom = 370.0
+grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 6
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 6
+theme_override_constants/shadow_outline_size = 3
+theme_override_font_sizes/font_size = 40
+text = "x4.75"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="5" type="Label" parent="Menu/FightRuleset/RulesetOptions/KbMultNumbers"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 2806.0
+offset_top = 270.0
+offset_right = 2982.0
+offset_bottom = 370.0
+grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 6
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 6
+theme_override_constants/shadow_outline_size = 3
+theme_override_font_sizes/font_size = 40
+text = "x5.0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="KbMultShader" type="ColorRect" parent="Menu/FightRuleset/RulesetOptions"]
+offset_left = -88.0
+offset_top = 470.0
+offset_right = 88.0
+offset_bottom = 570.0
 color = Color(1, 1, 1, 0.392157)
 
 [connection signal="timeout" from="TitleScreen/InitTimer" to="." method="_on_init_timer_timeout"]
