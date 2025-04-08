@@ -1,0 +1,1 @@
+Applies to specific abilities. Abilities affected cannot be used.
