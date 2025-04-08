@@ -1,7 +1,9 @@
 @tool
 class_name EntityEmitter extends Node2D
 
+## Scene of entity to be instantiated.
 @export var scene : PackedScene
+## If this parameter is true, then the entity 
 @export var on_ground := false
 
 
@@ -15,8 +17,11 @@ func _process(delta: float) -> void:
 	t.owner = owner
 	t.one_shot = true
 	t.name = "StartTime"
+	
 	get_child(0).timeout.connect(emit, CONNECT_PERSIST)
 
 
 func emit() -> void:
-	pass
+	if on_ground:
+		
+		
