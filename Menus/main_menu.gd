@@ -97,7 +97,7 @@ func _process(delta: float) -> void:
 		if state == 3:
 			# Moving gamemode selection
 			for i in 3:
-				%RulesetOptions.get_child(i + 1).position.x = lerp(%RulesetOptions.get_child(i + 2).position.x, -880.0 + (Global.gamemode * 352) + (i * 352), 0.15)
+				%RulesetOptions.get_child(i + 1).position.x = lerp(%RulesetOptions.get_child(i + 1).position.x, -880.0 + (Global.gamemode * 352) + (i * 352), 0.15)
 			# Moving everything on Y axis
 			%RulesetOptions.position.y = lerp(%RulesetOptions.position.y, 300.0 - (current_menu_selection * 200), 0.15)
 			%RulesetOptions.position.y = clamp(%RulesetOptions.position.y, -1200.0, 0.0)
