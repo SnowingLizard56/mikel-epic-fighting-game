@@ -1,1 +1,1 @@
-Reverse controls.
+Reverse controls. Up is down, left is right - it's all out of control!!!

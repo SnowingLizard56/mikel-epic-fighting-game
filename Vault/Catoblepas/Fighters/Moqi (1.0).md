@@ -13,3 +13,6 @@ I still see the shadows in my room
 | Recovery    | Shadow Swap             | Launch a shadow upwards, player can decide to swap places with shadow by repeating the input.                                                                                       | Shadow launches upward and sustains in the air               |
 | Ultimate    | Requiem of Death        | Zip across the screen in a straight line, and send the first person hit into a cutscene to deal crazy damage.                                                                       | ***お前はもう死ん でいる***                                            |
 
+# Designs
+
+![[Pasted image 20250408181940.png]]

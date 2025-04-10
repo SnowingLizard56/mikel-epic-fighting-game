@@ -13,3 +13,7 @@ btd6 druid
 | Recovery    | Vine Swing         | Release a vine that can cling onto surfaces.  Can retract and pull the player up.          |                                       |
 | Ultimate    | Rosarium Reckoning | Spikes cover the arena, slowing and dealing damage to anyone who moves                     | Vyse Ultimate + Thorns                |
 Druid. Nature theme. Strong Melee attacker, decent recovery, pretty bad at long range.
+
+# Designs
+
+![[Pasted image 20250408182035.png]]
