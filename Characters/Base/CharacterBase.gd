@@ -226,7 +226,7 @@ func hit(source: Hitbox):
 	# Modify for Dir
 	knockback *= source.host.facing_dir
 	
-	# TODO - fixe
+	# FIXME
 	knockback *= 1 + (hp / 10) ** 2
 	
 	knockback_velocity = knockback

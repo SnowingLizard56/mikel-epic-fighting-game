@@ -23,5 +23,5 @@ func _process(delta: float) -> void:
 
 func emit() -> void:
 	if on_ground:
-		
+		pass
 		
