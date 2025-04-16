@@ -1,33 +1,35 @@
-[gd_scene load_steps=9 format=3 uid="uid://blhx0vnt7st2p"]
+[gd_scene load_steps=10 format=3 uid="uid://dbanbu8gl2b8f"]
 
-[ext_resource type="Script" uid="uid://ic2eyu54kp66" path="res://Characters/Base/CharacterBase.gd" id="1_s88hy"]
-[ext_resource type="Script" uid="uid://c4psqrs01olrq" path="res://Characters/Example/States/IdleState.gd" id="2_s8nxr"]
-[ext_resource type="Script" uid="uid://kweq1j6mjprm" path="res://Characters/Base/StateBase.gd" id="3_0t1o6"]
-[ext_resource type="Script" uid="uid://bn8g23mytsl6s" path="res://Characters/Base/hitbox.gd" id="3_s8nxr"]
-[ext_resource type="Script" uid="uid://b4wxsbaxamlgy" path="res://Characters/Base/entity_emitter.gd" id="5_qsuow"]
-[ext_resource type="Script" uid="uid://bvem3x021anwx" path="res://Characters/Base/player_hurtbox.gd" id="6_0t1o6"]
+[ext_resource type="Script" uid="uid://fdhj5uka1hd5" path="res://Characters/Mikel/mikel_character.gd" id="1_n6jj0"]
+[ext_resource type="Script" uid="uid://c4psqrs01olrq" path="res://Characters/Example/States/IdleState.gd" id="2_3xcg6"]
+[ext_resource type="Script" uid="uid://kweq1j6mjprm" path="res://Characters/Base/StateBase.gd" id="3_n3a4m"]
+[ext_resource type="Script" uid="uid://bn8g23mytsl6s" path="res://Characters/Base/hitbox.gd" id="4_5vsqh"]
+[ext_resource type="Script" uid="uid://b4wxsbaxamlgy" path="res://Characters/Base/entity_emitter.gd" id="5_g1xud"]
+[ext_resource type="SpriteFrames" uid="uid://uubk00ywxenw" path="res://Characters/Example/CharacterBase.tres" id="6_lnvaq"]
+[ext_resource type="Script" uid="uid://bvem3x021anwx" path="res://Characters/Base/player_hurtbox.gd" id="7_wxpf4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s88hy"]
+size = Vector2(32, 64)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_s88hy"]
 
 [node name="Character" type="CharacterBody2D"]
 collision_layer = 0
-script = ExtResource("1_s88hy")
+script = ExtResource("1_n6jj0")
 
 [node name="StateMachine" type="Node" parent="."]
 
 [node name="Idle" type="Node2D" parent="StateMachine"]
-script = ExtResource("2_s8nxr")
+script = ExtResource("2_3xcg6")
 allow_jumps = true
 
 [node name="Melee" type="Node2D" parent="StateMachine"]
-script = ExtResource("3_0t1o6")
+script = ExtResource("3_n3a4m")
 
 [node name="Hitbox" type="Area2D" parent="StateMachine/Melee"]
 collision_layer = 0
 collision_mask = 2
-script = ExtResource("3_s8nxr")
+script = ExtResource("4_5vsqh")
 impede_move_speed = 100.0
 metadata/_custom_type_script = "uid://bn8g23mytsl6s"
 
@@ -46,10 +48,10 @@ one_shot = true
 [node name="GrabSuccess" type="Node2D" parent="StateMachine"]
 
 [node name="SideSpecial" type="Node2D" parent="StateMachine"]
-script = ExtResource("3_0t1o6")
+script = ExtResource("3_n3a4m")
 
 [node name="EntityEmitter" type="Node2D" parent="StateMachine/SideSpecial"]
-script = ExtResource("5_qsuow")
+script = ExtResource("5_g1xud")
 
 [node name="StartTime" type="Timer" parent="StateMachine/SideSpecial/EntityEmitter"]
 one_shot = true
@@ -64,16 +66,16 @@ one_shot = true
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 unique_name_in_owner = true
+sprite_frames = ExtResource("6_lnvaq")
 animation = &"Idle"
-offset = Vector2(0, -191)
 
 [node name="Shape" type="CollisionShape2D" parent="."]
-position = Vector2(0, -31)
+position = Vector2(0, -24)
 shape = SubResource("RectangleShape2D_s88hy")
 
 [node name="Hitbox" type="Area2D" parent="."]
 unique_name_in_owner = true
-script = ExtResource("6_0t1o6")
+script = ExtResource("7_wxpf4")
 
 [node name="Shape" type="CollisionShape2D" parent="Hitbox"]
 position = Vector2(0, -21)

@@ -14,7 +14,7 @@ enum KB_SRC {
 @export var detect_cooldown := -1.0
 ## Flip with player
 @export_category("Attack Parameters")
-## Hitstun to apply to hit players.
+## Hitstun to apply to hit players. Also used for stun.
 @export var hitstun_time := 0.0
 ## Amount of damage dealt by this hb immediately. further damage can be applied by state script.
 @export var damage := 0.0
@@ -25,6 +25,24 @@ enum KB_SRC {
 @export var knockback_direction := Vector2.RIGHT
 ## Knockback strength (This is multiplied by damage function later) (who fucking knows what this is measured in)
 @export var knockback_strength := 0.0
+@export_category("Status Effects") #TODO
+## How long to apply brittle. Brittle is applied after damage is dealt for this attack.
+@export var brittle_time := 0.0
+## Damage multiplier for brittle. Default is 2x: don't change this unless you have to.
+@export var brittle_amount := 2.0
+## How long to apply bleed for.
+@export var bleed_tick_count := 0
+## Time between bleed ticks. First tick happens after this much time.
+@export var bleed_tick_time := 0.1
+## Damage per tick of bleed.
+@export var bleed_tick_damage := 1.0
+## Time to apply impede
+@export var impede_time := 0.0
+## Maximum jump height.
+@export var impede_jump_height := 20.0
+## Maximum move speed.
+@export var impede_move_speed := 5.0
+
 
 var host: Node2D
 var state: BaseState

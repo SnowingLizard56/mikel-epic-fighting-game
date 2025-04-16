@@ -122,3 +122,7 @@ back={
 2d_physics/layer_1="Terrain"
 2d_physics/layer_2="Player Type Hitboxes"
 2d_physics/layer_17="Menu Edge Detection"
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0

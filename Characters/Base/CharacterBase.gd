@@ -123,7 +123,14 @@ func movement(dir:Vector2, delta:float, jump:bool) -> void:
 		real_gravity = state.gravity
 	else:
 		real_gravity = gravity
+	
 	# Controlled movement
+	if hitstun_time > 0:
+		hitstun_time -= delta
+		if hitstun_time < 0:
+			hitstun_time = 0
+		return
+	
 	if knockback_velocity:
 		velocity = knockback_velocity
 		velocity.y -= (real_gravity * delta) / velocity.length()
