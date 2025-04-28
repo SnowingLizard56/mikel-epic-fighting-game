@@ -50,6 +50,7 @@ script = ExtResource("3_0t1o6")
 
 [node name="EntityEmitter" type="Node2D" parent="StateMachine/SideSpecial"]
 script = ExtResource("5_qsuow")
+max_distance = null
 
 [node name="StartTime" type="Timer" parent="StateMachine/SideSpecial/EntityEmitter"]
 one_shot = true
@@ -64,7 +65,7 @@ one_shot = true
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 unique_name_in_owner = true
-animation = &"Idle"
+animation = &""
 offset = Vector2(0, -191)
 
 [node name="Shape" type="CollisionShape2D" parent="."]

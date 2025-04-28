@@ -18,6 +18,20 @@ var centre_of_mass: Vector2:
 
 signal ui_update
 
+# Status Effects
+# Brittle
+var brittle_time := 0.0
+var brittle_amnt := 0.0
+# Bleed
+var bleed_ticks := 0
+var bleed_time := 0.0
+var bleed_time_elapsed := 0.0
+var bleed_damage := 0.0
+# Impede
+var impede_time := 0.0
+var impede_jump_strength := 0.0
+var impede_move_speed := 0.0
+
 
 @export_category("Jumping")
 ## How many jumps the player gets while in the air. This includes walking off of ledges and jumping into the air.
@@ -108,8 +122,23 @@ func _physics_process(delta: float) -> void:
 	# PLEASE remember to change this input. good lord
 	dir_input = Vector2(Input.get_axis("ui_left", "ui_right"), Input.get_axis("ui_up", "ui_down"))
 	movement(dir_input, delta, Input.is_action_just_pressed("ui_accept"))
-	# Check for 
 
+
+func _process(delta: float) -> void:
+	# Status Effects
+	if brittle_time > 0.0:
+		brittle_time -= delta
+		if brittle_time <= 0.0:
+			brittle_time = 0.0
+	
+	if bleed_ticks > 0:
+		var current_ticks = floor(bleed_time_elapsed / bleed_time)
+		bleed_time_elapsed += delta
+		if current_ticks - floor(bleed_time_elapsed / bleed_time) > 0:
+			# TODO decide on multipliers
+			hp += bleed_damage
+			if floor(bleed_time_elapsed / bleed_time) >= bleed_ticks:
+				bleed_ticks = 0
 
 func damp(source:float, target:float, smoothing:float, dt:float) -> float:
 	return lerpf(source, target, 1 - pow(smoothing, dt))
@@ -233,8 +262,24 @@ func hit(source: Hitbox):
 	# Modify for Dir
 	knockback *= source.host.facing_dir
 	
-	# FIXME
-	knockback *= 1 + (hp / 10) ** 2
+	# TODO
+	knockback *= 1 + (hp / 10)
 	
 	knockback_velocity = knockback
+	
+	# Status Effects
+	# TODO - consider stacking?
+	# Brittle
+	brittle_time = source.brittle_time
+	brittle_amnt = source.brittle_amount
+	# Bleed
+	bleed_damage = source.bleed_tick_damage
+	bleed_ticks = source.bleed_tick_count
+	bleed_time = source.bleed_tick_time
+	bleed_time_elapsed = 0.0
+	# Impede
+	impede_time = source.impede_time
+	impede_jump_strength = sqrt(2*gravity*source.impede_jump_height)
+	impede_move_speed = source.impede_move_speed
+	
 	ui_update.emit()
