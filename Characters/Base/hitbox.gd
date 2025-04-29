@@ -65,7 +65,7 @@ func _ready() -> void:
 	end_timer = get_child(1)
 
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if Engine.is_editor_hint():
 		return
 	# Search for bodies overlapping child area2d named
@@ -82,7 +82,7 @@ func _physics_process(delta: float) -> void:
 				process_hit(area)
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if !Engine.is_editor_hint() or get_child_count() > 0:
 		return
 	if not (get_parent() is BaseState or get_parent() is BaseProjectile):

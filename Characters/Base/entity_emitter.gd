@@ -11,9 +11,9 @@ class_name EntityEmitter extends Node2D
 @export var max_distance := 10000
 
 func _ready() -> void:
-	assert(scene.can_instantiate(), "Scene not defined or cannot be instantiated.")
+	assert(scene != null, "Scene not defined.")
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if !Engine.is_editor_hint() or get_child_count() > 0:
 		return
 	if not (get_parent() is BaseState or get_parent() is BaseProjectile):

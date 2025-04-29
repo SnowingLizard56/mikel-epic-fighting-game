@@ -27,8 +27,9 @@ centered = false
 
 [node name="Character" parent="." instance=ExtResource("1_jcxlc")]
 position = Vector2(321, 464)
-max_air_jumps = 4
+max_air_jumps = 999
 ground_jump_height = 64.0
+air_jump_height = 128.0
 gravity = 980
 air_control_force = 450.0
 ground_control_force = 600.0
@@ -36,4 +37,4 @@ ground_friction = 0.02
 air_friction = 0.05
 max_ground_speed = 200.0
 max_air_speed = 300.0
-max_fall_speed = 320
+max_fall_speed = 640

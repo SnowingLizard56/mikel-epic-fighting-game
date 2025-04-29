@@ -4,10 +4,9 @@ class_name BaseProjectile extends BaseEntity
 var host: BaseCharacter
 var area_blacklist: Array[Area2D]
 var facing_dir: int
+@export_category("")
 @export var velocity := Vector2.ZERO
 @export var acceleration := Vector2.ZERO
-@export var lifetime := 0.0
-
 
 func stop():
-	pass
+	queue_free()

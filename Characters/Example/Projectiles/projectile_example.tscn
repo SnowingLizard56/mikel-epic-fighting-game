@@ -6,3 +6,7 @@
 script = ExtResource("1_ioby1")
 
 [node name="Shape" type="CollisionShape2D" parent="."]
+
+[node name="Lifetime" type="Timer" parent="."]
+
+[node name="StateMachine" type="Node" parent="."]
