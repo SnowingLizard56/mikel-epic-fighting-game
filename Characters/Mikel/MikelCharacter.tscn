@@ -52,6 +52,7 @@ script = ExtResource("3_n3a4m")
 
 [node name="EntityEmitter" type="Node2D" parent="StateMachine/SideSpecial"]
 script = ExtResource("5_g1xud")
+max_distance = null
 
 [node name="StartTime" type="Timer" parent="StateMachine/SideSpecial/EntityEmitter"]
 one_shot = true

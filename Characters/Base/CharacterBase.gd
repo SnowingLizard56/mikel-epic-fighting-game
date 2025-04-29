@@ -136,6 +136,7 @@ func _process(delta: float) -> void:
 		bleed_time_elapsed += delta
 		if current_ticks - floor(bleed_time_elapsed / bleed_time) > 0:
 			# TODO decide on multipliers
+			# TODO make framerate independent
 			hp += bleed_damage
 			if floor(bleed_time_elapsed / bleed_time) >= bleed_ticks:
 				bleed_ticks = 0
@@ -201,6 +202,9 @@ func movement(dir:Vector2, delta:float, jump:bool) -> void:
 					real_max_speed = state.max_air_speed
 				else:
 					real_max_speed = max_air_speed
+			# Impede: if active, take the lower of normal and impede max speeds
+			if impede_time > 0.0:
+				real_max_speed = min(impede_move_speed, real_max_speed)
 			#
 			velocity.x = move_toward(velocity.x, real_max_speed * dir.x, real_input_force * delta)
 		else:
@@ -230,6 +234,9 @@ func movement(dir:Vector2, delta:float, jump:bool) -> void:
 				real_jump_impulse = air_jump_strength
 			else:
 				real_jump_impulse = -velocity.y
+			# Impede: if active, take the lower of normal and impede strength
+			if impede_time > 0.0:
+				real_jump_impulse = min(impede_jump_strength, real_jump_impulse)
 			#
 			velocity.y = -real_jump_impulse
 		#
@@ -243,7 +250,9 @@ func movement(dir:Vector2, delta:float, jump:bool) -> void:
 
 # Called when __THIS__ character gets hit.
 func hit(source: Hitbox):
-	hp += source.damage * damage_taken_multiplier * state.damage_taken_multiplier
+	var dmg_taken = source.damage * damage_taken_multiplier * state.damage_taken_multiplier
+	if brittle_time:
+		dmg_taken *= brittle_amnt
 	hitstun_time += source.hitstun_time * hitstun_taken_multiplier * state.hitstun_taken_multiplier
 	# Knockback. not sure how this works yet.
 	var knockback
@@ -262,8 +271,10 @@ func hit(source: Hitbox):
 	# Modify for Dir
 	knockback *= source.host.facing_dir
 	
-	# TODO
-	knockback *= 1 + (hp / 10)
+	if hp > 50:
+		knockback *= log(hp - 25) + 2 - log(25)
+	elif hp > 25:
+		knockback *= hp / 25
 	
 	knockback_velocity = knockback
 	
@@ -282,4 +293,6 @@ func hit(source: Hitbox):
 	impede_jump_strength = sqrt(2*gravity*source.impede_jump_height)
 	impede_move_speed = source.impede_move_speed
 	
+	# Finish
+	hp += dmg_taken
 	ui_update.emit()

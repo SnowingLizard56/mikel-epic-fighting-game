@@ -13,8 +13,6 @@ var centre_of_mass
 
 # Called when __THIS__ character gets hit.
 func hit(source: Hitbox):
-	hp += source.damage * damage_taken_multiplier
-
 	# Knockback. not sure how this works yet.
 	var knockback = knockback_taken_multiplier
 	if not knockback:
@@ -33,4 +31,9 @@ func hit(source: Hitbox):
 	knockback *= source.host.facing_dir
 	
 	# Unsure about this
-	knockback *= 1 + (hp / 100)
+	if hp > 50:
+		knockback *= log(hp - 25) + 2 - log(25)
+	elif hp > 25:
+		knockback *= hp / 25
+	
+	hp += source.damage * damage_taken_multiplier
