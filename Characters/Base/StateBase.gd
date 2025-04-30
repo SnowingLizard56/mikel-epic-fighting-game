@@ -21,12 +21,12 @@ signal hit_detected(target:BaseCharacter)
 @export_category("Physics Overrides")
 ## Whether or not to apply this value instead of host value
 @export var override_ground_friction := false
-## Speed reduction over time while on ground. 0 is frictionless.
-@export var ground_friction := 0.0
+## Speed reduction over time while on ground. This is similar to half-lives; (1, 0.5) says that it will be multiplied by 0.5 every second.
+@export var ground_friction := Vector2(1, 0.5)
 ## Whether or not to apply this value instead of host value
 @export var override_air_friction := false
-## Speed reduction over time while in air. 0 is frictionless.
-@export var air_friction := 0.0
+## Speed reduction over time while in air. This is similar to half-lives; (1, 0.5) says that it will be multiplied by 0.5 every second.
+@export var air_friction := Vector2(1, 0.5)
 ## Whether or not to apply this value instead of host value
 @export var override_max_air_speed := false
 ## Maximum speed to be reached horizontally while in the air
@@ -61,6 +61,8 @@ signal hit_detected(target:BaseCharacter)
 @export var knockback_taken_multiplier := 1.0
 ## Modifier to hitstun applied to host while in this state
 @export var hitstun_taken_multiplier := 1.0
+## Cancel state on hit
+@export var cancel_state_on_hit := false
 
 @export_category("Misc")
 ## Always allow player to turn around
@@ -92,4 +94,16 @@ func stop() -> void:
 	for i in get_children():
 		if i is Hitbox:
 			i.inactive()
+		if i is Timer:
+			i.stop()
 	state_exited.emit()
+
+
+func recursive_get_children(node: Node=self):
+	if get_child_count() == 0:
+		return []
+	var children = node.get_children()
+	for i in node.get_children():
+		children += recursive_get_children(i)
+	return children
+			

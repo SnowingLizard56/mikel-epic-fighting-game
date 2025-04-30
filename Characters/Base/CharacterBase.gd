@@ -47,16 +47,18 @@ var impede_move_speed := 0.0
 @onready var air_jump_strength = sqrt(2*gravity*air_jump_height)
 ## Acceleration downwards due to gravity. Multiplied by a state's gravity_mult to get final vertical acceleration (px per second per second)
 @export var gravity := 98
+## How long after leaving a platform to allow a jump to be "grounded"
+@export var coyote_time := 0.1
 
 @export_category("Physics")
 ## Acceleration in px per second squared controlled by horizontal input while airborne.
 @export var air_control_force := 0.0
 ## Acceleration in px per second squared controlled by horizontal input while not airborne.
 @export var ground_control_force := 0.0
-## Speed reduction over time while on ground. 0 is frictionless.
-@export var ground_friction := 0.8
-## Speed reduction over time while in air. 0 is frictionless.
-@export var air_friction := 0.8
+## Speed reduction over time while on ground. This is similar to half-lives; (1, 0.5) says that it will be multiplied by 0.5 every second.
+@export var ground_friction := Vector2(1, 0.5)
+## Speed reduction over time while in air. This is similar to half-lives; (1, 0.5) says that it will be multiplied by 0.5 every second.
+@export var air_friction := Vector2(1, 0.5)
 ## Maximum speed to be reached horizontally while on the ground
 @export var max_ground_speed := 32.0
 ## Maximum speed to be reached horizontally while in the air
@@ -71,8 +73,8 @@ var impede_move_speed := 0.0
 @export var knockback_taken_multiplier := 1.0
 ## Multplier to hitstun on self.
 @export var hitstun_taken_multiplier := 1.0
-## Smoothing for knockback damping.
-@export var knockback_damp_smoothing := 0.0
+## Smoothing for knockback damping. This is similar to half-lives; (1, 0.5) says that it will be multiplied by 0.5 every second.
+@export var knockback_damp_half := Vector2(1,0.5)
 
 @export_category("Inputs & What They Do")
 
@@ -135,14 +137,14 @@ func _process(delta: float) -> void:
 		var current_ticks = floor(bleed_time_elapsed / bleed_time)
 		bleed_time_elapsed += delta
 		if current_ticks - floor(bleed_time_elapsed / bleed_time) > 0:
-			# TODO decide on multipliers
-			# TODO make framerate independent
-			hp += bleed_damage
+			hp += bleed_damage * min(bleed_ticks - current_ticks, current_ticks - floor(bleed_time_elapsed / bleed_time))
 			if floor(bleed_time_elapsed / bleed_time) >= bleed_ticks:
 				bleed_ticks = 0
+			ui_update.emit()
 
-func damp(source:float, target:float, smoothing:float, dt:float) -> float:
-	return lerpf(source, target, 1 - pow(smoothing, dt))
+
+func damp(source:float, target:float, half:Vector2, dt:float) -> float:
+	return lerpf(source, target, 1 - pow(exp(log(half.y)/half.x), dt))
 
 
 # dir is not normalised
@@ -164,7 +166,7 @@ func movement(dir:Vector2, delta:float, jump:bool) -> void:
 	if knockback_velocity:
 		velocity = knockback_velocity
 		velocity.y -= (real_gravity * delta) / velocity.length()
-		knockback_velocity = velocity.limit_length(damp(velocity.length(), 0.0, knockback_damp_smoothing, delta))
+		knockback_velocity = velocity.limit_length(damp(velocity.length(), 0.0, knockback_damp_half, delta))
 	else:
 		# Terminal Velocity
 		var real_terminal_velocity
@@ -209,7 +211,7 @@ func movement(dir:Vector2, delta:float, jump:bool) -> void:
 			velocity.x = move_toward(velocity.x, real_max_speed * dir.x, real_input_force * delta)
 		else:
 			# Friction
-			var real_friction
+			var real_friction: Vector2
 			if is_on_floor():
 				if state.override_ground_friction:
 					real_friction = state.ground_friction
@@ -227,7 +229,7 @@ func movement(dir:Vector2, delta:float, jump:bool) -> void:
 		if jump and state.allow_jumps:
 			# Jump strength
 			var real_jump_impulse := 0.0
-			if is_on_floor():
+			if is_on_floor() or !$Coyote.is_stopped():
 				real_jump_impulse = ground_jump_strength
 			elif air_jumps > 0:
 				air_jumps -= 1
@@ -245,6 +247,8 @@ func movement(dir:Vector2, delta:float, jump:bool) -> void:
 		# if it is now on the floor and it wasnt before, reset air jumps
 		if is_on_floor() and !was_on_floor:
 			air_jumps = max_air_jumps
+		elif !is_on_floor() and was_on_floor:
+			$Coyote.start(coyote_time)
 		
 
 
@@ -253,7 +257,7 @@ func hit(source: Hitbox):
 	var dmg_taken = source.damage * damage_taken_multiplier * state.damage_taken_multiplier
 	if brittle_time:
 		dmg_taken *= brittle_amnt
-	hitstun_time += source.hitstun_time * hitstun_taken_multiplier * state.hitstun_taken_multiplier
+		
 	# Knockback. not sure how this works yet.
 	var knockback
 	match source.knockback_origin_type:
@@ -276,22 +280,30 @@ func hit(source: Hitbox):
 	elif hp > 25:
 		knockback *= hp / 25
 	
+	hitstun_time = max(source.hitstun_time * hitstun_taken_multiplier * state.hitstun_taken_multiplier, hitstun_time)
+	if source.match_hitstun_to_knockback < 1:
+		hitstun_time = max(log(source.match_hitstun_to_knockback)/log(exp(log(knockback_damp_half.y)/knockback_damp_half.x)), hitstun_time)
+	
 	knockback_velocity = knockback
 	
 	# Status Effects
-	# TODO - consider stacking?
 	# Brittle
-	brittle_time = source.brittle_time
-	brittle_amnt = source.brittle_amount
+	brittle_time = max(source.brittle_time, brittle_time)
+	brittle_amnt = max(source.brittle_amount, brittle_amnt)
 	# Bleed
-	bleed_damage = source.bleed_tick_damage
+	bleed_damage = max(source.bleed_tick_damage, bleed_damage)
 	bleed_ticks = source.bleed_tick_count
-	bleed_time = source.bleed_tick_time
+	bleed_time = min(source.bleed_tick_time, bleed_time)
 	bleed_time_elapsed = 0.0
 	# Impede
-	impede_time = source.impede_time
+	impede_time = max(source.impede_time, impede_time)
 	impede_jump_strength = sqrt(2*gravity*source.impede_jump_height)
 	impede_move_speed = source.impede_move_speed
+	
+	# State
+	if state.cancel_state_on_hit:
+		state.stop()
+		# TODO - this can break stuff
 	
 	# Finish
 	hp += dmg_taken

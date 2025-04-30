@@ -30,6 +30,9 @@ script = ExtResource("3_1w16l")
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("4_23g1u")
+hit_entities = null
+hit_players = null
+match_hitstun_to_knockback = null
 impede_move_speed = 100.0
 metadata/_custom_type_script = "uid://bn8g23mytsl6s"
 
@@ -52,7 +55,6 @@ script = ExtResource("3_1w16l")
 
 [node name="EntityEmitter" type="Node2D" parent="StateMachine/SideSpecial"]
 script = ExtResource("5_04ev4")
-max_distance = null
 
 [node name="StartTime" type="Timer" parent="StateMachine/SideSpecial/EntityEmitter"]
 one_shot = true

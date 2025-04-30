@@ -1,12 +1,29 @@
-[gd_scene load_steps=2 format=3 uid="uid://wagb2j3io308"]
+[gd_scene load_steps=3 format=3 uid="uid://wagb2j3io308"]
 
 [ext_resource type="Script" uid="uid://uitg0mg0hj71" path="res://ProjectileBase.gd" id="1_ioby1"]
+[ext_resource type="Script" uid="uid://bn8g23mytsl6s" path="res://Characters/Base/hitbox.gd" id="2_awqhw"]
 
 [node name="ProjectileBase" type="Area2D"]
 script = ExtResource("1_ioby1")
 
 [node name="Shape" type="CollisionShape2D" parent="."]
 
-[node name="Lifetime" type="Timer" parent="."]
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+unique_name_in_owner = true
 
-[node name="StateMachine" type="Node" parent="."]
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("2_awqhw")
+metadata/_custom_type_script = "uid://bn8g23mytsl6s"
+
+[node name="StartTime" type="Timer" parent="Hitbox"]
+one_shot = true
+
+[node name="ActiveTime" type="Timer" parent="Hitbox"]
+one_shot = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+
+[connection signal="timeout" from="Hitbox/StartTime" to="Hitbox/ActiveTime" method="start"]
+[connection signal="timeout" from="Hitbox/ActiveTime" to="Hitbox" method="inactive"]

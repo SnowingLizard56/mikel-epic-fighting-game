@@ -52,7 +52,6 @@ script = ExtResource("3_0t1o6")
 [node name="EntityEmitter" type="Node2D" parent="StateMachine/SideSpecial"]
 script = ExtResource("5_qsuow")
 scene = ExtResource("6_qsuow")
-max_distance = null
 
 [node name="StartTime" type="Timer" parent="StateMachine/SideSpecial/EntityEmitter"]
 one_shot = true
@@ -65,6 +64,9 @@ one_shot = true
 
 [node name="SpecialSpecial" type="Node2D" parent="StateMachine"]
 
+[node name="Coyote" type="Timer" parent="."]
+one_shot = true
+
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 unique_name_in_owner = true
 animation = &""
@@ -74,14 +76,16 @@ offset = Vector2(0, -191)
 position = Vector2(0, -31)
 shape = SubResource("RectangleShape2D_s88hy")
 
-[node name="Hitbox" type="Area2D" parent="."]
+[node name="Hurtbox" type="Area2D" parent="."]
 unique_name_in_owner = true
+collision_mask = 0
 script = ExtResource("6_0t1o6")
 
-[node name="Shape" type="CollisionShape2D" parent="Hitbox"]
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox"]
 position = Vector2(0, -21)
 shape = SubResource("CircleShape2D_s88hy")
 
+[connection signal="timeout" from="StateMachine/Melee/Hitbox/StartTime" to="StateMachine/Melee/Hitbox" method="active"]
 [connection signal="timeout" from="StateMachine/Melee/Hitbox/StartTime" to="StateMachine/Melee/Hitbox/ActiveTime" method="start"]
 [connection signal="timeout" from="StateMachine/Melee/Hitbox/ActiveTime" to="StateMachine/Melee/Hitbox" method="inactive"]
 [connection signal="timeout" from="StateMachine/SideSpecial/EntityEmitter/StartTime" to="StateMachine/SideSpecial/EntityEmitter" method="emit"]

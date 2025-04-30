@@ -4,3 +4,7 @@ extends Area2D
 
 func hit(hb:Hitbox):
 	host.hit(hb)
+
+func _ready() -> void:
+	collision_layer = 2
+	collision_mask = 0

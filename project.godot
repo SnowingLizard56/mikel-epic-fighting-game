@@ -120,7 +120,9 @@ back={
 [layer_names]
 
 2d_physics/layer_1="Terrain"
-2d_physics/layer_2="Player Type Hitboxes"
+2d_physics/layer_2="Player Hurtboxes"
+2d_physics/layer_3="Hitboxes (Attacks, Projectiles)"
+2d_physics/layer_4="Entity Hurtboxes"
 2d_physics/layer_17="Menu Edge Detection"
 
 [rendering]
