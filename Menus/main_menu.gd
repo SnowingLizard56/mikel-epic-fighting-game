@@ -101,15 +101,7 @@ func _process(delta: float) -> void:
 			# Moving everything on Y axis
 			%RulesetOptions.position.y = lerp(%RulesetOptions.position.y, 300.0 - (current_menu_selection * 200), 0.15)
 			%RulesetOptions.position.y = clamp(%RulesetOptions.position.y, -1200.0, 0.0)
-			var n: int = 0
-			for child in %RulesetOptions.get_children():
-				child.self_modulate.a = sqrt(3.25 / (1 + (2.25 * (cos(deg_to_rad(child.position.x / 4))) ** 2))) * cos(deg_to_rad(child.position.x / 4))
-				child.self_modulate.a = clamp(child.self_modulate.a, 0.0, 1.0)
-				if child.position.y < 540 and child.position.y > -540:
-					child.show()
-				else:
-					child.hide()
-				n += 1
+			var n: int
 			# Moving lives numbers
 			n = 0
 			for child in %RulesetOptions/LifeNumbers.get_children():
@@ -136,6 +128,39 @@ func _process(delta: float) -> void:
 			n = 0
 			for child in %RulesetOptions/DmgMultNumbers.get_children():
 				child.position.x = lerp(child.position.x, 0.0 - ((Global.damage_multiplier * 4) * 176) + (n * 176), 0.15)
+				child.self_modulate.a = sqrt(3.25 / (1 + (2.25 * (cos(deg_to_rad(child.position.x / 5))) ** 2))) * cos(deg_to_rad(child.position.x / 5))
+				child.self_modulate.a = clamp(child.self_modulate.a, 0.0, 1.0)
+				if child.position.x < 800 and child.position.x > -800:
+					child.show()
+				else:
+					child.hide()
+				n += 1
+			# Moving knockback multiplier numbers
+			n = 0
+			for child in %RulesetOptions/KbMultNumbers.get_children():
+				child.position.x = lerp(child.position.x, 0.0 - ((Global.knockback_multiplier * 4) * 176) + (n * 176), 0.15)
+				child.self_modulate.a = sqrt(3.25 / (1 + (2.25 * (cos(deg_to_rad(child.position.x / 5))) ** 2))) * cos(deg_to_rad(child.position.x / 5))
+				child.self_modulate.a = clamp(child.self_modulate.a, 0.0, 1.0)
+				if child.position.x < 800 and child.position.x > -800:
+					child.show()
+				else:
+					child.hide()
+				n += 1
+			# Moving gravity multiplier numbers
+			n = 0
+			for child in %RulesetOptions/GravMultNumbers.get_children():
+				child.position.x = lerp(child.position.x, 0.0 - ((Global.gravity_multiplier * 4) * 176) + (n * 176), 0.15)
+				child.self_modulate.a = sqrt(3.25 / (1 + (2.25 * (cos(deg_to_rad(child.position.x / 5))) ** 2))) * cos(deg_to_rad(child.position.x / 5))
+				child.self_modulate.a = clamp(child.self_modulate.a, 0.0, 1.0)
+				if child.position.x < 800 and child.position.x > -800:
+					child.show()
+				else:
+					child.hide()
+				n += 1
+			# Moving speed multiplier numbers
+			n = 0
+			for child in %RulesetOptions/SpeedMultNumbers.get_children():
+				child.position.x = lerp(child.position.x, 0.0 - ((Global.speed_multiplier * 4) * 176) + (n * 176), 0.15)
 				child.self_modulate.a = sqrt(3.25 / (1 + (2.25 * (cos(deg_to_rad(child.position.x / 5))) ** 2))) * cos(deg_to_rad(child.position.x / 5))
 				child.self_modulate.a = clamp(child.self_modulate.a, 0.0, 1.0)
 				if child.position.x < 800 and child.position.x > -800:
@@ -170,7 +195,7 @@ func _process(delta: float) -> void:
 					Global.starting_damage -= 10
 			else:
 				%RulesetOptions/StartDmgShader.color = lerp(%RulesetOptions/StartDmgShader.color, Color(1, 1, 1, 0.25), 0.15)
-			# Start damage select
+			# Damage multiplier select
 			if current_menu_selection == 3:
 				%RulesetOptions/DmgMultShader.color = lerp(%RulesetOptions/DmgMultShader.color, menu_bg_colours[main_selection + 1], 0.15)
 				if Input.is_action_just_pressed("right") and Global.damage_multiplier < 5.0:
@@ -179,7 +204,33 @@ func _process(delta: float) -> void:
 					Global.damage_multiplier -= 0.25
 			else:
 				%RulesetOptions/DmgMultShader.color = lerp(%RulesetOptions/DmgMultShader.color, Color(1, 1, 1, 0.25), 0.15)
-			
+			# Knockback multiplier select
+			if current_menu_selection == 4:
+				%RulesetOptions/KbMultShader.color = lerp(%RulesetOptions/KbMultShader.color, menu_bg_colours[main_selection + 1], 0.15)
+				if Input.is_action_just_pressed("right") and Global.knockback_multiplier < 5.0:
+					Global.knockback_multiplier += 0.25
+				if Input.is_action_just_pressed("left") and Global.knockback_multiplier > 0.0:
+					Global.knockback_multiplier -= 0.25
+			else:
+				%RulesetOptions/KbMultShader.color = lerp(%RulesetOptions/KbMultShader.color, Color(1, 1, 1, 0.25), 0.15)
+			# Gravity multiplier select
+			if current_menu_selection == 5:
+				%RulesetOptions/GravMultShader.color = lerp(%RulesetOptions/GravMultShader.color, menu_bg_colours[main_selection + 1], 0.15)
+				if Input.is_action_just_pressed("right") and Global.gravity_multiplier < 5.0:
+					Global.gravity_multiplier += 0.25
+				if Input.is_action_just_pressed("left") and Global.gravity_multiplier > 0.0:
+					Global.gravity_multiplier -= 0.25
+			else:
+				%RulesetOptions/GravMultShader.color = lerp(%RulesetOptions/GravMultShader.color, Color(1, 1, 1, 0.25), 0.15)
+			# Speed multiplier select
+			if current_menu_selection == 6:
+				%RulesetOptions/SpeedMultShader.color = lerp(%RulesetOptions/SpeedMultShader.color, menu_bg_colours[main_selection + 1], 0.15)
+				if Input.is_action_just_pressed("right") and Global.speed_multiplier < 5.0:
+					Global.speed_multiplier += 0.25
+				if Input.is_action_just_pressed("left") and Global.speed_multiplier > 0.0:
+					Global.speed_multiplier -= 0.25
+			else:
+				%RulesetOptions/SpeedMultShader.color = lerp(%RulesetOptions/SpeedMultShader.color, Color(1, 1, 1, 0.25), 0.15)
 
 
 func _on_any_button_flicker_timeout() -> void:
