@@ -4,6 +4,8 @@ var hp := 0.0
 var stocks := 0
 var hitstun_time := 0.0
 var knockback_velocity := Vector2.ZERO
+enum jump_states {NONE, GROUND, AIR}
+var jump_state := jump_states.NONE
 @onready var states: Array = get_child(0).get_children()
 @onready var state: BaseState = states[0]:
 	set(v):
@@ -49,6 +51,10 @@ var impede_move_speed := 0.0
 @export var gravity := 98
 ## How long after leaving a platform to allow a jump to be "grounded"
 @export var coyote_time := 0.1
+## Allow cancelling of jumps from the ground
+@export var cancel_ground_jump := false
+## Allow cancelling of jumps from the air
+@export var cancel_air_jump := false
 
 @export_category("Physics")
 ## Acceleration in px per second squared controlled by horizontal input while airborne.
@@ -123,7 +129,7 @@ func _physics_process(delta: float) -> void:
 	# TEMP
 	# PLEASE remember to change this input. good lord
 	dir_input = Vector2(Input.get_axis("ui_left", "ui_right"), Input.get_axis("ui_up", "ui_down"))
-	movement(dir_input, delta, Input.is_action_just_pressed("ui_accept"))
+	movement(dir_input, delta, Input.is_action_just_pressed("ui_accept"), Input.is_action_just_released("ui_accept"))
 
 
 func _process(delta: float) -> void:
@@ -148,7 +154,7 @@ func damp(source:float, target:float, half:Vector2, dt:float) -> float:
 
 
 # dir is not normalised
-func movement(dir:Vector2, delta:float, jump:bool) -> void:
+func movement(dir:Vector2, delta:float, start_jump:bool, end_jump:bool) -> void:
 	# Gravity
 	var real_gravity
 	if state.override_gravity:
@@ -157,16 +163,15 @@ func movement(dir:Vector2, delta:float, jump:bool) -> void:
 		real_gravity = gravity
 	
 	# Controlled movement
-	if hitstun_time > 0:
-		hitstun_time -= delta
-		if hitstun_time < 0:
-			hitstun_time = 0
-		return
-	
 	if knockback_velocity:
 		velocity = knockback_velocity
 		velocity.y -= (real_gravity * delta) / velocity.length()
 		knockback_velocity = velocity.limit_length(damp(velocity.length(), 0.0, knockback_damp_half, delta))
+	elif hitstun_time > 0:
+		hitstun_time -= delta
+		if hitstun_time < 0:
+			hitstun_time = 0
+		return
 	else:
 		# Terminal Velocity
 		var real_terminal_velocity
@@ -226,14 +231,17 @@ func movement(dir:Vector2, delta:float, jump:bool) -> void:
 			velocity.x = damp(velocity.x, 0, real_friction, delta)
 		
 		# Jump
-		if jump and state.allow_jumps:
+		if start_jump and state.allow_jumps:
 			# Jump strength
 			var real_jump_impulse := 0.0
 			if is_on_floor() or !$Coyote.is_stopped():
 				real_jump_impulse = ground_jump_strength
+				$Coyote.stop()
+				jump_state = jump_states.GROUND
 			elif air_jumps > 0:
 				air_jumps -= 1
 				real_jump_impulse = air_jump_strength
+				jump_state = jump_states.AIR
 			else:
 				real_jump_impulse = -velocity.y
 			# Impede: if active, take the lower of normal and impede strength
@@ -241,13 +249,25 @@ func movement(dir:Vector2, delta:float, jump:bool) -> void:
 				real_jump_impulse = min(impede_jump_strength, real_jump_impulse)
 			#
 			velocity.y = -real_jump_impulse
+		elif end_jump and (cancel_ground_jump and jump_state == jump_states.GROUND or cancel_air_jump and jump_state == jump_states.AIR):
+			var rf
+			if cancel_ground_jump and jump_state == jump_states.GROUND:
+				rf = ground_jump_strength
+			elif cancel_air_jump and jump_state == jump_states.AIR:
+				rf = air_jump_strength
+			if velocity.y <= -rf/2:
+				velocity.y *= 0.5
+			
+			jump_state = jump_states.NONE
+			
 		#
 		var was_on_floor = is_on_floor()
 		move_and_slide()
 		# if it is now on the floor and it wasnt before, reset air jumps
 		if is_on_floor() and !was_on_floor:
+			jump_state = jump_states.NONE
 			air_jumps = max_air_jumps
-		elif !is_on_floor() and was_on_floor:
+		elif !start_jump and !is_on_floor() and was_on_floor:
 			$Coyote.start(coyote_time)
 		
 

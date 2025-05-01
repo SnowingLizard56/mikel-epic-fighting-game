@@ -2,7 +2,7 @@ class_name BaseState extends Node
 
 # StateBase is BaseState
 @onready var host: BaseCharacter = get_parent().get_parent()
-@onready var area_blacklist: Array[Area2D] = [%Hitbox]
+@onready var area_blacklist: Array[Area2D] = [%Hurtbox]
 var frame: int
 signal state_entered
 signal state_exited

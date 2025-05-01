@@ -1,4 +1,4 @@
-extends Area2D
+class_name Hurtbox extends Area2D
 
 @onready var host: BaseCharacter = get_parent()
 

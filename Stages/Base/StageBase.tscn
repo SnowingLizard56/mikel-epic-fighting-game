@@ -1,20 +1,57 @@
-[gd_scene load_steps=4 format=3 uid="uid://bqipd3g2dpgtc"]
+[gd_scene load_steps=11 format=3 uid="uid://bqipd3g2dpgtc"]
 
 [ext_resource type="PackedScene" uid="uid://blhx0vnt7st2p" path="res://Characters/Base/CharacterBase.tscn" id="1_jcxlc"]
 [ext_resource type="Texture2D" uid="uid://dwlioff0qg0qp" path="res://Stages/Base/untitled.png" id="1_o3v33"]
+[ext_resource type="Script" uid="uid://dgftqwrm85vse" path="res://Stages/Base/stage_control.gd" id="1_pl70x"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_jcxlc"]
 a = Vector2(306, 585)
-b = Vector2(820, 594)
+b = Vector2(819, 596)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_pl70x"]
+a = Vector2(388, 493)
+b = Vector2(527, 494)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_ut5or"]
+a = Vector2(758, 499)
+b = Vector2(611, 498)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_pl70x"]
+normal = Vector2(1, 0)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ut5or"]
+normal = Vector2(-1, 0)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_qowi8"]
+normal = Vector2(0, 1)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_mo5y8"]
 
 [node name="StageBase" type="Node2D"]
+script = ExtResource("1_pl70x")
+allow_offscreen_distance = Array[float]([80.0, 80.0, 160.0, 0.0])
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
+[node name="Sprite" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+texture = ExtResource("1_o3v33")
+centered = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+[node name="Terrain" type="StaticBody2D" parent="."]
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Terrain"]
 shape = SubResource("SegmentShape2D_jcxlc")
 
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Terrain"]
+shape = SubResource("SegmentShape2D_pl70x")
+one_way_collision = true
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Terrain"]
+shape = SubResource("SegmentShape2D_ut5or")
+one_way_collision = true
+
 [node name="Spawns" type="Node2D" parent="."]
+unique_name_in_owner = true
 
 [node name="0" type="Marker2D" parent="Spawns"]
 position = Vector2(667, 494)
@@ -22,18 +59,38 @@ position = Vector2(667, 494)
 [node name="1" type="Marker2D" parent="Spawns"]
 position = Vector2(432, 494)
 
-[node name="Stage" type="Sprite2D" parent="."]
-texture = ExtResource("1_o3v33")
-centered = false
-
 [node name="Character" parent="." instance=ExtResource("1_jcxlc")]
 position = Vector2(321, 464)
-max_air_jumps = 999
-ground_jump_height = 64.0
-air_jump_height = 128.0
+max_air_jumps = 2000
+ground_jump_height = 128.0
+air_jump_height = 64.0
 gravity = 980
+coyote_time = 0.25
+cancel_ground_jump = true
 air_control_force = 450.0
 ground_control_force = 600.0
 max_ground_speed = 200.0
 max_air_speed = 300.0
 max_fall_speed = 640
+
+[node name="Camera2D" type="Camera2D" parent="."]
+unique_name_in_owner = true
+anchor_mode = 0
+
+[node name="Death" type="Area2D" parent="."]
+unique_name_in_owner = true
+collision_mask = 2
+
+[node name="Left" type="CollisionShape2D" parent="Death"]
+shape = SubResource("WorldBoundaryShape2D_pl70x")
+
+[node name="Right" type="CollisionShape2D" parent="Death"]
+shape = SubResource("WorldBoundaryShape2D_ut5or")
+
+[node name="Top" type="CollisionShape2D" parent="Death"]
+shape = SubResource("WorldBoundaryShape2D_qowi8")
+
+[node name="Bottom" type="CollisionShape2D" parent="Death"]
+shape = SubResource("WorldBoundaryShape2D_mo5y8")
+
+[connection signal="area_entered" from="Death" to="." method="_on_death_hurtbox_entered"]

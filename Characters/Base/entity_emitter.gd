@@ -10,6 +10,7 @@ class_name EntityEmitter extends Node2D
 ## Maximum Distance from ground for entity to be emitted
 @export var max_distance := 10000
 
+
 func _ready() -> void:
 	assert(scene != null, "Scene not defined.")
 	if not (get_parent() is BaseState or get_parent() is BaseProjectile):
@@ -28,4 +29,5 @@ func emit(dir: Vector2) -> void:
 		k.global_position = global_position
 	k.host = state.host
 	k.area_blacklist = state.area_blacklist
-	k.dir
+	k.dir = dir.normalized()
+	#TODO theres something to do here but i dont know what it is
