@@ -1,4 +1,3 @@
-@tool
 class_name EntityEmitter extends Node2D
 
 @onready var state : BaseState = get_parent()
@@ -17,7 +16,7 @@ func _ready() -> void:
 		push_warning("Questionable entity emitter but it's probably fine")
 
 
-func emit(dir: Vector2) -> void:
+func emit_projectile(dir: Vector2) -> void:
 	var k : BaseProjectile = scene.instantiate()
 	state.host.add_sibling(k)
 	if on_ground:

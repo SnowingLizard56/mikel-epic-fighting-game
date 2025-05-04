@@ -14,10 +14,21 @@
 
 [node name="Character" type="CharacterBody2D"]
 collision_layer = 0
+floor_constant_speed = true
+floor_block_on_wall = false
 script = ExtResource("1_s88hy")
 max_air_jumps = 3
+gravity = 980
+air_control_weak = 200.0
+air_control_strong = 600.0
+ground_control_strong = 500.0
+air_weak_threshold_speed = 160.0
+ground_weak_threshold_speed = 200.0
 ground_friction = Vector2(0.1, 0.5)
 air_friction = Vector2(0.1, 0.75)
+max_ground_speed = 200.0
+max_air_speed = 300.0
+max_fall_speed = 640
 
 [node name="StateMachine" type="Node" parent="."]
 

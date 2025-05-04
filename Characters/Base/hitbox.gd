@@ -12,10 +12,6 @@ enum KB_SRC {
 ## How long before something can be detected again.
 ## 0.0 will detect it every frame, anything negative will detect it once for as long as its in this state, anything else is time in seconds.
 @export var detect_cooldown := -1.0
-## Whether or not this hitbox can detect entities
-@export var hit_entities := true
-## Whether or not this hitbox can detect players
-@export var hit_players := true
 @export_category("Attack Parameters")
 ## Hitstun to apply to hit players. Also used for stun.
 @export var hitstun_time := 0.0
@@ -61,18 +57,14 @@ func _ready() -> void:
 		return
 	parent = get_parent()
 	
-	if parent is BaseState:
-		host = parent.host
-	elif parent is BaseProjectile:
-		host = parent
-	elif parent is BaseEntity:
+	if "host" in parent:
 		host = parent.host
 	else:
-		push_warning("Weird hitbox but ok i trust you")
+		host = parent
 	start_timer = get_child(0)
 	end_timer = get_child(1)
 	collision_layer = 4
-	collision_mask = int(hit_entities) * 8 + int(hit_players) * 2
+	collision_mask = 2
 
 
 func _physics_process(_delta: float) -> void:
