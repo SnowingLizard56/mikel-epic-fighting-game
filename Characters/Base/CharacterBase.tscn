@@ -43,6 +43,7 @@ script = ExtResource("3_0t1o6")
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("3_s8nxr")
+final_knockback_magnitude = null
 impede_move_speed = 100.0
 metadata/_custom_type_script = "uid://bn8g23mytsl6s"
 

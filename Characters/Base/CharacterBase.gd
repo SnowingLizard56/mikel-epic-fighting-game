@@ -1,6 +1,8 @@
 class_name BaseCharacter extends CharacterBody2D
 
-var hp := 0.0
+var hp := 0.0:
+	get():
+		return roundf(hp*10)/10
 var stocks := 0
 var hitstun_time := 0.0
 var knockback_velocity := Vector2.ZERO
@@ -156,9 +158,11 @@ func _process(delta: float) -> void:
 	if bleed_ticks > 0:
 		var current_ticks = floor(bleed_time_elapsed / bleed_time)
 		bleed_time_elapsed += delta
-		if current_ticks - floor(bleed_time_elapsed / bleed_time) > 0:
-			hp += bleed_damage * min(bleed_ticks - current_ticks, current_ticks - floor(bleed_time_elapsed / bleed_time))
-			if floor(bleed_time_elapsed / bleed_time) >= bleed_ticks:
+		var new_ticks = floor(bleed_time_elapsed / bleed_time) - current_ticks
+		
+		if new_ticks > 0:
+			hp += bleed_damage * min(bleed_ticks - current_ticks, new_ticks)
+			if current_ticks + new_ticks >= bleed_ticks:
 				bleed_ticks = 0
 			ui_update.emit()
 
@@ -178,14 +182,16 @@ func movement(dir:Vector2, delta:float, start_jump:bool, end_jump:bool) -> void:
 	
 	if hitstun_time > 0:
 		hitstun_time -= delta
-		if hitstun_time <= 0:
-			hitstun_time = 0
-			knockback_velocity = Vector2.ZERO
+	if hitstun_time < 0:
+		hitstun_time = 0
+		knockback_velocity = Vector2.ZERO
 	
 	# Controlled movement
 	if knockback_velocity:
 		knockback_velocity = knockback_velocity.limit_length(damp(knockback_velocity.length(), 0.0, knockback_damp_half, delta))
 		knockback_gravity_component -= real_gravity * delta
+		print(knockback_velocity.length())
+		print(knockback_gravity_component)
 		velocity = knockback_velocity
 		velocity.y -= knockback_gravity_component
 	elif !(hitstun_time > 0):
@@ -313,38 +319,38 @@ func hit(source: Hitbox):
 	if brittle_time:
 		dmg_taken *= brittle_amnt
 	
-	# Knockback. not sure how this works yet.
-	var knockback
-	match source.knockback_origin_type:
-		source.KB_SRC.CUSTOM:
-			knockback = source.knockback_direction.normalized()
-		source.KB_SRC.HITBOX:
-			knockback = source.global_position.direction_to(centre_of_mass)
-		source.KB_SRC.CHARACTER:
-			knockback = source.host.centre_of_mass.direction_to(centre_of_mass)
-	
-	knockback *= source.knockback_strength
+	# Knockback. sure how this works yet.
+	var knockback := source.knockback_strength
 	knockback *= knockback_taken_multiplier
 	knockback *= state.knockback_taken_multiplier
-	
-	# Modify for Dir
-	if "facing_dir" in source.host:
-		knockback.x *= source.host.facing_dir
 	
 	if hp > 50:
 		knockback *= log(hp - 25) + 2 - log(25)
 	elif hp > 25:
 		knockback *= hp / 25
 	
-	# Account for lerp difference
+	# Account for lerp difference; keep strength 1:1
 	knockback *= -log(knockback_damp_half.y) / knockback_damp_half.x
 	
 	# Calculate t
 	hitstun_time = max(source.hitstun_time * hitstun_taken_multiplier * state.hitstun_taken_multiplier, hitstun_time)
-	if source.match_hitstun_to_knockback < 1:
-		hitstun_time = max(log(source.match_hitstun_to_knockback)/log(exp(log(knockback_damp_half.y)/knockback_damp_half.x)), hitstun_time)
+	if source.final_knockback_magnitude > 0:
+		hitstun_time = max(log(source.final_knockback_magnitude/knockback)/log(exp(log(knockback_damp_half.y)/knockback_damp_half.x)), hitstun_time)
 	
-	knockback_velocity = knockback
+	# Get direction of knockback
+	match source.knockback_origin_type:
+		source.KB_SRC.CUSTOM:
+			knockback_velocity = source.knockback_direction.normalized()
+		source.KB_SRC.HITBOX:
+			knockback_velocity = source.global_position.direction_to(centre_of_mass)
+		source.KB_SRC.CHARACTER:
+			knockback_velocity = source.host.centre_of_mass.direction_to(centre_of_mass)
+	
+	# Modify for facing_dir
+	if "facing_dir" in source.host:
+		knockback_velocity.x *= source.host.facing_dir
+	
+	knockback_velocity *= knockback
 	knockback_gravity_component = 0.0
 	
 	# Status Effects
@@ -354,7 +360,7 @@ func hit(source: Hitbox):
 	# Bleed
 	bleed_damage = max(source.bleed_tick_damage, bleed_damage)
 	bleed_ticks = source.bleed_tick_count
-	bleed_time = min(source.bleed_tick_time, bleed_time)
+	bleed_time = source.bleed_tick_time
 	bleed_time_elapsed = 0.0
 	# Impede
 	impede_time = max(source.impede_time, impede_time)

@@ -86,4 +86,5 @@ func camera_update(delta: float):
 
 
 func _on_character_ui_update() -> void:
-	print($Character.hp)
+	#print($Character.hp)
+	pass

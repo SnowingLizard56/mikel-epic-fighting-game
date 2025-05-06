@@ -15,6 +15,7 @@ unique_name_in_owner = true
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("2_awqhw")
+final_knockback_magnitude = null
 metadata/_custom_type_script = "uid://bn8g23mytsl6s"
 
 [node name="StartTime" type="Timer" parent="Hitbox"]

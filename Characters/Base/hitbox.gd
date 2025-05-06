@@ -15,8 +15,8 @@ enum KB_SRC {
 @export_category("Attack Parameters")
 ## Hitstun to apply to hit players. Also used for stun.
 @export var hitstun_time := 0.0
-## Histun instead is applied until this much knockback is left - 0.3 is 30%. Disabled at values >= 1.
-@export var match_hitstun_to_knockback := 1.0
+## Histun instead is applied until this much knockback is left.
+@export var final_knockback_magnitude := 1.0
 ## Amount of damage dealt by this hb immediately. further damage can be applied by state script.
 @export var damage := 0.0
 @export_category("Knockback")
