@@ -75,7 +75,14 @@ position = Vector2(322, 464)
 max_air_jumps = 30
 ground_jump_height = 128.0
 air_jump_height = 64.0
+coyote_time = null
+cancel_ground_jump = null
+cancel_air_jump = null
+ground_control_weak = null
 ground_friction = Vector2(0.1, 0.25)
+damage_taken_multiplier = null
+knockback_taken_multiplier = null
+hitstun_taken_multiplier = null
 
 [node name="Camera2D" type="Camera2D" parent="."]
 unique_name_in_owner = true

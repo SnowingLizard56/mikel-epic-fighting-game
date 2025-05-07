@@ -1,4 +1,4 @@
-extends Node2D
+class_name BaseStage extends Node2D
 
 ## Values should be in this order: 
 ## Left, Right, Up, Down.
@@ -8,6 +8,8 @@ extends Node2D
 @export var terrain_grow_amnt := 20.0
 ## Doesn't actually have to be a sprite. Just has to be a node that has the get_rect function. Determines the maximum size of the camera. 
 @export var map_sprite: Node2D
+## Distance above terrain for the bottom of respawning players' to be spawned.
+@export var respawn_height := 0.0
 var sprite_rect: Rect2
 var terrain_rect: Rect2
 var zoom_max: float
@@ -87,4 +89,13 @@ func camera_update(delta: float):
 
 func _on_character_ui_update() -> void:
 	#print($Character.hp)
+	pass
+
+
+func characters_spawn_start() -> void:
+	Global
+	pass
+
+
+func character_respawn(char: BaseCharacter) -> void:
 	pass

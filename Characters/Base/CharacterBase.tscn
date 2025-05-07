@@ -1,6 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://blhx0vnt7st2p"]
+[gd_scene load_steps=11 format=3 uid="uid://blhx0vnt7st2p"]
 
 [ext_resource type="Script" uid="uid://ic2eyu54kp66" path="res://Characters/Base/CharacterBase.gd" id="1_s88hy"]
+[ext_resource type="Script" uid="uid://cd58chjiyo204" path="res://Characters/Base/respawn.gd" id="2_fn1p3"]
 [ext_resource type="Script" uid="uid://c4psqrs01olrq" path="res://Characters/Example/States/IdleState.gd" id="2_s8nxr"]
 [ext_resource type="Script" uid="uid://kweq1j6mjprm" path="res://Characters/Base/StateBase.gd" id="3_0t1o6"]
 [ext_resource type="Script" uid="uid://bn8g23mytsl6s" path="res://Characters/Base/hitbox.gd" id="3_s8nxr"]
@@ -32,6 +33,10 @@ max_fall_speed = 640
 
 [node name="StateMachine" type="Node" parent="."]
 
+[node name="Respawn" type="Node2D" parent="StateMachine"]
+script = ExtResource("2_fn1p3")
+override_movement = true
+
 [node name="Idle" type="Node2D" parent="StateMachine"]
 script = ExtResource("2_s8nxr")
 allow_jumps = true
@@ -43,7 +48,6 @@ script = ExtResource("3_0t1o6")
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("3_s8nxr")
-final_knockback_magnitude = null
 impede_move_speed = 100.0
 metadata/_custom_type_script = "uid://bn8g23mytsl6s"
 
@@ -100,6 +104,7 @@ script = ExtResource("6_0t1o6")
 position = Vector2(0, -21)
 shape = SubResource("CircleShape2D_s88hy")
 
+[connection signal="state_entered" from="StateMachine/Respawn" to="StateMachine/Respawn" method="_on_state_entered"]
 [connection signal="timeout" from="StateMachine/Melee/Hitbox/StartTime" to="StateMachine/Melee/Hitbox" method="active"]
 [connection signal="timeout" from="StateMachine/Melee/Hitbox/StartTime" to="StateMachine/Melee/Hitbox/ActiveTime" method="start"]
 [connection signal="timeout" from="StateMachine/Melee/Hitbox/ActiveTime" to="StateMachine/Melee/Hitbox" method="inactive"]

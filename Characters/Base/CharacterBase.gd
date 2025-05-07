@@ -1,5 +1,7 @@
 class_name BaseCharacter extends CharacterBody2D
 
+var settings: Global.PlayerSettings
+var stage := BaseStage
 var hp := 0.0:
 	get():
 		return roundf(hp*10)/10
@@ -21,6 +23,9 @@ var facing_dir: int
 var centre_of_mass: Vector2:
 	get():
 		return %Hurtbox.get_child(0).global_position
+var total_stun_time: float:
+	get():
+		return max(knockback_end_time, hitstun_time)
 
 ## Emitted whenever something displayed on in-game UI needs to be changed.
 signal ui_update
@@ -41,6 +46,7 @@ var impede_move_speed := 0.0
 
 # Smoothing for knockback damping. This is similar to half-lives; (1, 0.5) says that it will be multiplied by 0.5 every second.
 var knockback_damp_half := Vector2(0.1,0.5)
+var knockback_end_time := 0.0
 
 
 @export_category("Jumping")
@@ -140,12 +146,28 @@ func on_animation_finished() -> void:
 
 # Base movement. Very modifiable in theory
 func _physics_process(delta: float) -> void:
-	# TEMP
+	# Reduce stun timers
+	if hitstun_time > 0:
+		hitstun_time -= delta
+		if hitstun_time < 0:
+			hitstun_time = 0
+	
+	if knockback_end_time > 0:
+		knockback_end_time -= delta
+		if knockback_end_time < 0:
+			knockback_end_time = 0
+			knockback_velocity = Vector2.ZERO
 	# PLEASE remember to change this input. good lord
 	if dir_input:
 		last_dir = dir_input
 	dir_input = Vector2(Input.get_axis("ui_left", "ui_right"), Input.get_axis("ui_up", "ui_down"))
-	movement(dir_input, delta, Input.is_action_just_pressed("ui_accept"), Input.is_action_just_released("ui_accept"))
+	var start_jump = Input.is_action_just_pressed("ui_accept")
+	var end_jump = Input.is_action_just_released("ui_accept")
+	
+	if state.override_movement:
+		state.movement(dir_input, delta, start_jump, end_jump)
+	else:
+		movement(dir_input, delta, start_jump, end_jump)
 
 
 func _process(delta: float) -> void:
@@ -180,21 +202,13 @@ func movement(dir:Vector2, delta:float, start_jump:bool, end_jump:bool) -> void:
 	else:
 		real_gravity = gravity
 	
-	if hitstun_time > 0:
-		hitstun_time -= delta
-	if hitstun_time < 0:
-		hitstun_time = 0
-		knockback_velocity = Vector2.ZERO
-	
 	# Controlled movement
 	if knockback_velocity:
 		knockback_velocity = knockback_velocity.limit_length(damp(knockback_velocity.length(), 0.0, knockback_damp_half, delta))
 		knockback_gravity_component -= real_gravity * delta
-		print(knockback_velocity.length())
-		print(knockback_gravity_component)
 		velocity = knockback_velocity
 		velocity.y -= knockback_gravity_component
-	elif !(hitstun_time > 0):
+	elif !(total_stun_time > 0):
 		# Terminal Velocity
 		var real_terminal_velocity
 		if state.override_max_fall_speed:
@@ -335,7 +349,7 @@ func hit(source: Hitbox):
 	# Calculate t
 	hitstun_time = max(source.hitstun_time * hitstun_taken_multiplier * state.hitstun_taken_multiplier, hitstun_time)
 	if source.final_knockback_magnitude > 0:
-		hitstun_time = max(log(source.final_knockback_magnitude/knockback)/log(exp(log(knockback_damp_half.y)/knockback_damp_half.x)), hitstun_time)
+		knockback_end_time = log(source.final_knockback_magnitude/knockback)/log(exp(log(knockback_damp_half.y)/knockback_damp_half.x))
 	
 	# Get direction of knockback
 	match source.knockback_origin_type:

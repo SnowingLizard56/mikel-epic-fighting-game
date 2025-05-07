@@ -106,4 +106,3 @@ func recursive_get_children(node: Node=self):
 	for i in node.get_children():
 		children += recursive_get_children(i)
 	return children
-			
